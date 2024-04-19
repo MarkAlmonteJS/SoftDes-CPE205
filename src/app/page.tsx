@@ -67,8 +67,8 @@ export default function Component() {
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-4 sm:grid-cols-2 md:gap-8 lg:max-w-5xl lg:grid-cols-3">
               <div className="flex flex-col items-center justify-center space-y-2">
-                <Image 
-                 src={logo3}
+                <Image width={300} height={300}  
+                src="https://mandauefoam.ph/cdn/shop/files/121429BayliDuckEggBlackoutCurtain84x95a.png?v=1697088216&width=900"
                  alt="curtain brown"
                  className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
                 <div className="space-y-2">
@@ -78,8 +78,8 @@ export default function Component() {
                 <Button size="sm">Add to Cart</Button>
               </div>
               <div className="flex flex-col items-center justify-center space-y-2">
-                 <Image 
-                 src={logo3}
+                 <Image width={300} height={300}
+                 src="https://cdn11.bigcommerce.com/s-pnuk8o2l3q/images/stencil/1280x1280/products/8880/61001/MUSBMARIN21A_01__35318.1685655215.jpg?c=1"
                  alt="curtain brown"
                  className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
                 <div className="space-y-2">
@@ -89,8 +89,8 @@ export default function Component() {
                 <Button size="sm">Add to Cart</Button>
               </div>
               <div className="flex flex-col items-center justify-center space-y-2">
-                <Image 
-                 src={logo3}
+                <Image height={300} width={300}
+                 src="https://linen-shed.com/cdn/shop/files/linenshedphotoBlackoutcurtain_740x.png?v=1689923466"
                  alt="curtain brown"
                  className="aspect-square overflow-hidden rounded-md object-cover object-center"/>  
                 <div className="space-y-2">
