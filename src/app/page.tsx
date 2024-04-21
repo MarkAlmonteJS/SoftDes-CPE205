@@ -1,16 +1,82 @@
+"use client"
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/VqZkKt7ikS8
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
+import { doc, setDoc, getDoc , collection, getDocs   } from "firebase/firestore"; 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {  CarouselPlugin } from "@/components/component/carousel"
 import Image from "next/image"
 import logo3 from "../../public/Assets/curtain1.jpg"
 import { LoginButton } from "@/components/component/loginbutton"
+import {useEffect, useState} from "react"
+import {firebasedb} from "../../firebaseconfig"
+
+// Define the type of the document data
+interface ProductSchema {
+  Image: string;
+  name: string;
+  price: number;
+  quantity: number;
+  tags: string[];
+  // Add other properties as needed
+ }
+ 
 
 export default function Component() {
+  const [documents, setDocuments] = useState([]);
+
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      const querySnapshot = await getDocs(collection(firebasedb, "Products"));
+      const documents = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })); 
+      console.log(documents)
+    };
+  
+    fetchDocuments();
+  }, []);
+  
+  useEffect(() => {
+
+// Add a new document in collection "cities"
+setDoc(doc(firebasedb, "Products", "LA"), {
+  Image: " ",
+  name: "Curtain 2",
+  price: 20,
+  quantity: 5,
+});
+fetchDocumentTable();
+fetchDocumentData();
+//console.log("fetch data",document)
+ }, [document]);
+
+ async function fetchDocumentData() {
+  const docRef = doc(firebasedb, "Products", "F9siixXgPweWXiti5o9Z");
+  const docSnap = await getDoc(docRef);
+ 
+  if (docSnap.exists()) {
+    // console.log("Document data:", docSnap.data());
+     const data = docSnap.data();
+    // console.log("fetch from fetch document",data)
+     //console.log("image",data.Image)
+  } else {
+     // docSnap.data() will be undefined in this case
+     console.log("No such document!");
+  }
+  
+ }
+ async function fetchDocumentTable() {
+  const productsCollectionRef = collection(firebasedb, "Products");
+  const querySnapshot = await getDocs(productsCollectionRef);
+ 
+  querySnapshot.forEach((doc) => {
+     console.log(doc.id, " => ", doc.data());
+     // You can process each document here as needed
+  });
+ }
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="border-b">
@@ -66,17 +132,21 @@ export default function Component() {
             </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-4 sm:grid-cols-2 md:gap-8 lg:max-w-5xl lg:grid-cols-3">
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <Image width={300} height={300}  
-                src="https://mandauefoam.ph/cdn/shop/files/121429BayliDuckEggBlackoutCurtain84x95a.png?v=1697088216&width=900"
-                 alt="curtain brown"
-                 className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
-                <div className="space-y-2">
-                  <h3 className="font-bold">Crutain 1</h3>
-                  <p className="font-semibold">$49.99</p>
-                </div>
-                <Button size="sm">Add to Cart</Button>
-              </div>
+            <div className="flex flex-col items-center justify-center space-y-2">
+    {documents.map((document, id) => (
+      <div key={id} className="flex flex-col items-center justify-center space-y-2">
+        <Image width={300} height={300}  
+          src={document.Image} // Adjust based on your data structure
+          alt="curtain brown"
+          className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
+        <div className="space-y-2">
+          <h3 className="font-bold">{document.name}</h3> {/* Adjust based on your data structure */}
+          <p className="font-semibold">${document.price}</p> {/* Adjust based on your data structure */}
+        </div>
+        <Button size="sm">Add to Cart</Button>
+      </div>
+    ))}
+  </div>
               <div className="flex flex-col items-center justify-center space-y-2">
                  <Image width={300} height={300}
                  src="https://cdn11.bigcommerce.com/s-pnuk8o2l3q/images/stencil/1280x1280/products/8880/61001/MUSBMARIN21A_01__35318.1685655215.jpg?c=1"
@@ -90,7 +160,7 @@ export default function Component() {
               </div>
               <div className="flex flex-col items-center justify-center space-y-2">
                 <Image height={300} width={300}
-                 src="https://linen-shed.com/cdn/shop/files/linenshedphotoBlackoutcurtain_740x.png?v=1689923466"
+                 src="https://www.ikea.com/ph/en/images/products/raecka-hugad-double-curtain-rod-combination-black__0893018_pe569528_s5.jpg?f=s"
                  alt="curtain brown"
                  className="aspect-square overflow-hidden rounded-md object-cover object-center"/>  
                 <div className="space-y-2">
