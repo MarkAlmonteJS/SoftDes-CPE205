@@ -12,7 +12,8 @@ import Image from "next/image"
 import logo3 from "../../public/Assets/curtain1.jpg"
 import { LoginButton } from "@/components/component/loginbutton"
 import {useEffect, useState} from "react"
-import {firebasedb} from "../../firebaseconfig"
+import {firebasedb} from "../../firebaseconfig" 
+import { Sheetcheckout } from "@/components/component/sheetscheckcart";
 
 // Define the type of the document data
 interface ProductSchema {
@@ -90,7 +91,7 @@ fetchDocumentData();
             <Link className="underline-off" href="/">
               Home
             </Link>
-            <Link className="underline-off" href="#">
+            <Link className="underline-off" href="/blinds">
               Curtains
             </Link>
             <Link className="underline-off" href="#">
@@ -99,6 +100,7 @@ fetchDocumentData();
             <Link className="underline-off" href="#">
               Portfolio
             </Link>
+            <Sheetcheckout></Sheetcheckout>
             <LoginButton/>
             <Link href={"/signup"}>
             <Button size="sm">Sign Up</Button>
@@ -177,39 +179,6 @@ fetchDocumentData();
                   src="/placeholder.svg"
                   width="300"
                 />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Curtain 4</h3>
-                  <p className="font-semibold">$49.99</p>
-                </div>
-                <Button size="sm">Add to Cart</Button>
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <img
-                  alt="Image"
-                  className="aspect-square overflow-hidden rounded-md object-cover object-center"
-                  height="300"
-                  src="/placeholder.svg"
-                  width="300"
-                />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Curtain 5</h3>
-                  <p className="font-semibold">$49.99</p>
-                </div>
-                <Button size="sm">Add to Cart</Button>
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2">
-                <img
-                  alt="Image"
-                  className="aspect-square overflow-hidden rounded-md object-cover object-center"
-                  height="300"
-                  src="/placeholder.svg"
-                  width="300"
-                />
-                <div className="space-y-2">
-                  <h3 className="font-bold">Curtain 6</h3>
-                  <p className="font-semibold">$49.99</p>
-                </div>
-                <Button size="sm">Add to Cart</Button>
               </div>
             </div>
           </div>
