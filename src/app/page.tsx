@@ -9,8 +9,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {  CarouselPlugin } from "@/components/component/carousel"
 import Image from "next/image"
-import logo3 from "../../public/Assets/curtain1.jpg"
-import { LoginButton } from "@/components/component/loginbutton"
 import {useEffect, useState} from "react"
 import {firebasedb} from "../../firebaseconfig" 
 import { Sheetcheckout } from "@/components/component/sheetscheckcart";
@@ -84,24 +82,23 @@ fetchDocumentData();
         <div className="container flex items-center justify-between h-14 px-4 sm:px-6 md:px-10">
           <nav className="hidden font-medium text-sm text-gray-500 sm:flex dark:text-gray-400">
           </nav>
-          <Link className="font-bold text-lg md:text-xl dark:text-gray-50" href="#">
-            Mikee's Curtain
+          <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="#">
+          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium dark:text-gray-400">
             <Link className="underline-off" href="/">
               Home
             </Link>
-            <Link className="underline-off" href="/blinds">
+            <Link className="underline-off" href="/">
               Curtains
             </Link>
-            <Link className="underline-off" href="#">
+            <Link className="underline-off" href="/blinds">
               Blinds
             </Link>
-            <Link className="underline-off" href="#">
-              Portfolio
-            </Link>
             <Sheetcheckout></Sheetcheckout>
-            <LoginButton/>
+            <Link href={"/login"}>
+            <Button size="sm">Login</Button>
+            </Link>
             <Link href={"/signup"}>
             <Button size="sm">Sign Up</Button>
             </Link>
@@ -142,8 +139,8 @@ fetchDocumentData();
           alt="curtain brown"
           className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
         <div className="space-y-2">
-          <h3 className="font-bold">{document.name}</h3> {/* Adjust based on your data structure */}
-          <p className="font-semibold">${document.price}</p> {/* Adjust based on your data structure */}
+          <h3 className="font-bold">{document.name}</h3> {}
+          <p className="font-semibold">${document.price}</p> {}
         </div>
         <Button size="sm">Add to Cart</Button>
       </div>
@@ -192,9 +189,6 @@ fetchDocumentData();
           </Link>
           <Link className="text-s hover:underline underline-offset-4" href="/contactus">
             Contact
-          </Link>
-          <Link className="text-s hover:underline underline-offset-4" href="about">
-            FAQs
           </Link>
         </nav>
       </footer>

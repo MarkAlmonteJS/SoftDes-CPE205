@@ -18,8 +18,8 @@ export function CurtainPage() {
         <div className="container flex items-center justify-between h-14 px-4 sm:px-6 md:px-10">
           <nav className="hidden font-medium text-sm text-gray-500 sm:flex dark:text-gray-400">
           </nav>
-          <Link className="font-bold text-lg md:text-xl dark:text-gray-50" href="#">
-            Mikee's Curtain
+          <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="/">
+          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
           </Link>
           <nav className="flex items-center gap-4 text-sm font-medium dark:text-gray-400">
             <Link className="underline-off" href="/">

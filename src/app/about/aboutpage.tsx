@@ -13,9 +13,9 @@ export function Aboutsamp() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link className="flex items-center justify-center" href="/">
-          <span className="sr-only">Mikee's Curtain</span>
-        </Link>
+          <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="/">
+          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
+          </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">
             Home

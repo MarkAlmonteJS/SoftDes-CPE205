@@ -41,7 +41,9 @@ export function Sheetcheckout() {
         </div>
         <SheetFooter>
         <Button type="submit">Edit Cart</Button>
-            <Button className="check out" href="/checkcart">Check out</Button>
+            <a href="/checkcart" className="check out">
+            <Button type="submit">Check out</Button>
+            </a>
         </SheetFooter>
       </SheetContent>
     </Sheet>
