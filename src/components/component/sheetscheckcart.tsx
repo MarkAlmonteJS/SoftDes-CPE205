@@ -13,15 +13,18 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import React from "react"
+import { ShoppingBag } from "lucide-react"
 
 
 export function Sheetcheckout() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Check Cart</Button>
+        <Button>
+          <ShoppingBag size={28} strokeWidth={2} />
+        </Button>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="max-w-4xl mx-auto sm:max-w-5xl lg:max-w-6xl p-4">
         <SheetHeader>
           <SheetTitle>Your Cart</SheetTitle>
           <SheetDescription>
@@ -30,7 +33,6 @@ export function Sheetcheckout() {
         </SheetHeader>
         <Cartsample />
         <SheetFooter>
-          <Button type="submit">Edit Cart</Button>
           <a href="/checkcart" className="check out">
             <Button type="submit">Check out</Button>
           </a>

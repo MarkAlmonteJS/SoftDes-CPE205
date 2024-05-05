@@ -56,8 +56,7 @@ export function Usertab() {
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-[60px] items-center border-b px-6">
                         Hello!,
-
-                        {isLoggedIn && <span className="text-lg font-semibold"> {userFirstName}</span>}
+                        {isLoggedIn && <span className="text-lg font-bold"> {userFirstName}</span>}
                     </div>
                     <div className="flex-1 overflow-auto py-2">
                     </div>
@@ -165,6 +164,17 @@ export function Usertab() {
                         </div>
                     </div>
                 </main>
+                <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+                    <p className="text-s text-gray-500 dark:text-gray-400">© 2024 Mikee's Curtain. All rights reserved.</p>
+                    <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+                        <Link className="text-s hover:underline underline-offset-4" href="/about">
+                            About Us
+                        </Link>
+                        <Link className="text-s hover:underline underline-offset-4" href="/contactus">
+                            Contact
+                        </Link>
+                    </nav>
+                </footer>
             </div>
         </div>
     )

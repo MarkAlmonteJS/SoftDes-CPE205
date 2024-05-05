@@ -56,10 +56,12 @@ export function Banner() {
     function handleLogout() {
 
         sessionStorage.setItem("User", "")
-        router.push("/")
+        router.push("/login")
+
     }
 
     return (
+
         <header className="border-b">
             <div className="container flex items-center justify-between h-14 px-4 sm:px-6 md:px-10">
                 <nav className="hidden font-medium text-sm text-gray-500 sm:flex dark:text-gray-400">
@@ -98,7 +100,9 @@ export function Banner() {
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
-                    <Sheetcheckout></Sheetcheckout>
+                    <div className="fixed top-2 right-2 m-4 z-50">
+                        <Sheetcheckout />
+                    </div>
                     {isLoggedIn ? (
                         <>
                             <Link href="/user" className="link-style">

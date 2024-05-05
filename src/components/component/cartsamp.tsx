@@ -19,6 +19,7 @@ To read more about using these font, please visit the Next.js documentation:
 **/
 import { Button } from "@/components/ui/button"
 import React from "react"
+import Plus from "./plus"
 
 export function Cartsample() {
   return (
@@ -34,87 +35,48 @@ export function Cartsample() {
         </thead>
         <tbody>
           <tr className="border-b border-gray-200 dark:border-gray-700">
-            <td className="px-4 py-3">
-              <img
-                alt="Product Image"
-                className="rounded-md"
-                height={64}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "64/64",
-                  objectFit: "cover",
-                }}
-                width={64}
-              />
-            </td>
             <td className="px-4 py-3 font-medium">Cozy Blanket</td>
             <td className="px-4 py-3 text-right flex items-center justify-end gap-2">
               <Button className="h-8 w-8" size="icon" variant="outline">
-                minus
+                -
                 <span className="sr-only">Decrease quantity</span>
               </Button>
-              <span>2</span>
+              <span>1</span>
               <Button className="h-8 w-8" size="icon" variant="outline">
-                plus
-                <span className="sr-only">Increase quantity</span>
+                +
+                <span className="sr-only">Decrease quantity</span>
               </Button>
             </td>
             <td className="px-4 py-3 text-right">$29.99</td>
             <td className="px-4 py-3 text-right">$59.98</td>
           </tr>
           <tr className="border-b border-gray-200 dark:border-gray-700">
-            <td className="px-4 py-3">
-              <img
-                alt="Product Image"
-                className="rounded-md"
-                height={64}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "64/64",
-                  objectFit: "cover",
-                }}
-                width={64}
-              />
-            </td>
             <td className="px-4 py-3 font-medium">Autumn Mug</td>
             <td className="px-4 py-3 text-right flex items-center justify-end gap-2">
               <Button className="h-8 w-8" size="icon" variant="outline">
-                addminus
+                -
                 <span className="sr-only">Decrease quantity</span>
               </Button>
               <span>1</span>
               <Button className="h-8 w-8" size="icon" variant="outline">
-                add plus
-                <span className="sr-only">Increase quantity</span>
+                +
+                <span className="sr-only">Decrease quantity</span>
               </Button>
             </td>
             <td className="px-4 py-3 text-right">$12.99</td>
             <td className="px-4 py-3 text-right">$12.99</td>
           </tr>
           <tr className="border-b border-gray-200 dark:border-gray-700">
-            <td className="px-4 py-3">
-              <img
-                alt="Product Image"
-                className="rounded-md"
-                height={64}
-                src="/placeholder.svg"
-                style={{
-                  aspectRatio: "64/64",
-                  objectFit: "cover",
-                }}
-                width={64}
-              />
-            </td>
             <td className="px-4 py-3 font-medium">Fall Fragrance Candle</td>
             <td className="px-4 py-3 text-right flex items-center justify-end gap-2">
               <Button className="h-8 w-8" size="icon" variant="outline">
-                add minus icon here
+                -
                 <span className="sr-only">Decrease quantity</span>
               </Button>
-              <span>3</span>
+              <span>1</span>
               <Button className="h-8 w-8" size="icon" variant="outline">
-                add pluss icon here
-                <span className="sr-only">Increase quantity</span>
+                +
+                <span className="sr-only">Decrease quantity</span>
               </Button>
             </td>
             <td className="px-4 py-3 text-right">$16.99</td>

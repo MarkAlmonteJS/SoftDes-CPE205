@@ -79,7 +79,7 @@ export function Contactus() {
                         <Link className="text-xs hover:underline underline-offset-4" href="/about">
                           About Us
                         </Link>
-                        <Link className="text-xs hover:underline underline-offset-4" href="/contact">
+                        <Link className="text-xs hover:underline underline-offset-4" href="#">
                           Contact
                         </Link>
                       </nav>
