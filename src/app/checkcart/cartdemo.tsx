@@ -7,36 +7,12 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { Separator } from "@/components/ui/separator"
+import { Banner } from "@/components/component/banner"
 
 export function Cheqcart() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="flex items-center h-14 px-6 border-b lg:h-[60px] gap-4 dark:border-gray-800">
-      <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="/">
-          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-10 w-auto" />
-          </Link>
-        <nav className="hidden lg:flex lg:flex-row lg:items-center lg:gap-4 lg:ml-auto">
-          <Link
-            className="text-sm rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            href="/"
-          >
-            Home
-          </Link>
-          <Link
-            className="text-sm rounded-lg bg-gray-100 px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
-            href="#"
-          >
-            Cart
-          </Link>
-          <Link
-            className="text-sm rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-            href="contactus"
-          >
-            Contact
-          </Link>
-        </nav>
-        <Button size="sm">Logout</Button>
-      </header>
+      <Banner />
       <main className="flex-1 p-4 md:p-6 lg:p-8 grid items-start gap-4">
         <div className="grid items-start gap-2">
           <h1 className="font-semibold text-2xl">Your Cart</h1>
@@ -74,7 +50,7 @@ export function Cheqcart() {
                   <TableCell>$120.00</TableCell>
                   <TableCell className="w-10 text-right">
                     <Button size="icon" variant="outline">
-               
+
                       <span className="sr-only">Delete</span>
                     </Button>
                   </TableCell>
@@ -103,7 +79,7 @@ export function Cheqcart() {
             </Table>
           </div>
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-            
+
             <div className="flex flex-col gap-1 text-sm">
               <div className="flex items-center gap-2">
                 <div>Subtotal</div>

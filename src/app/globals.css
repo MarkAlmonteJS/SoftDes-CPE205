@@ -67,14 +67,15 @@
 }
 
 .yellow-button {
-background-color: yellow;
-cursor: pointer;
+  background-color: yellow;
+  cursor: pointer;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -84,11 +85,38 @@ cursor: pointer;
   content: "";
   display: block;
   height: 2px;
-  width: 500; /* Adjust the width as needed */
-  background: #242424; /* Change the color as needed */
-  margin-top: 4%; /* Adjust the space between the text and the line */
- }
+  width: 500;
 
- .ml-auto {
+  background: #242424;
+
+  margin-top: 4%;
+  margin-bottom: 2%
+    /* Adjust the space between the text and the line */
+}
+
+.ml-auto {
   margin-left: auto;
- }
+}
+
+.line {
+  border-bottom: 2px solid #000;
+}
+
+.link-style {
+  font-weight: bold;
+  color: #000;
+  /* Default text color */
+  text-decoration: none;
+  /* Remove underline */
+}
+
+.link-style:hover {
+  color: #279486;
+  /* Highlight color when hovered */
+}
+
+.sheet-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}

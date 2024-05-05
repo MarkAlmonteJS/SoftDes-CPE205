@@ -1,9 +1,9 @@
 import React from 'react';
-import { CurtainPage } from './blindcurtains';
+import BlindsPage from "./blindcurtains"
 
 const Page: React.FC = () => {
     return (
-    <CurtainPage></CurtainPage>
+        <BlindsPage />
     );
 }
 export default Page;

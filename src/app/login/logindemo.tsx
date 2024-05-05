@@ -7,8 +7,8 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import {firebasedb, app} from "../../../firebaseconfig"
-import {getAuth , signInWithEmailAndPassword} from "firebase/auth"
+import { firebasedb, app } from "../../../firebaseconfig"
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 
@@ -16,28 +16,29 @@ const auth = getAuth(app)
 
 
 export function Loginpage() {
-  const router= useRouter()
+  const router = useRouter()
 
-  const handleSubmit = async (event:any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-  
+
     try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        console.log("Login Successful");
-        console.log("User Logged In with: ",userCredential);
-        console.log("User Logged In with: ",userCredential.user.uid);
-      sessionStorage.setItem("User",userCredential.user.uid)
-        router.push("/loginedpage");
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Login Successful");
+      console.log("User Logged In with: ", userCredential);
+      console.log("User Logged In with: ", userCredential.user.uid);
+      sessionStorage.setItem("User", userCredential.user.uid)
+      console.log("User in session storage", sessionStorage.getItem("User"))
+      router.push("/loginedpage");
     } catch (error) {
-        console.log("User Not Registered");
+      console.log("User Not Registered");
     }
   };
 
-  
-const [email, setemail] = useState ("")
-const [password, setpassword] = useState ("")
 
-  
+  const [email, setemail] = useState("")
+  const [password, setpassword] = useState("")
+
+
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <header className="border-b">
@@ -51,49 +52,49 @@ const [password, setpassword] = useState ("")
           </nav>
         </div>
       </header>
-    <div className="flex items-center min-h-screen px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-[400px] mx-auto space-y-8">
-      <div className="flex flex-col items-center mt-10">
-  <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mb-4" />
-  <h1 className="text-4xl font-bold mt-10">Mikee's Curtain</h1>
-  <p className="text-gray-500 dark:text-gray-400">Welcome back!</p>
-</div>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-            id="email"
-            placeholder="@example.com"
-            value={email}
-            onChange={e => setemail(e.target.value)} // uses to change the value of first name
-            type="text"
-            required />
+      <div className="flex items-center min-h-screen px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[400px] mx-auto space-y-8">
+          <div className="flex flex-col items-center mt-10">
+            <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mb-4" />
+            <h1 className="text-4xl font-bold mt-10">Mikee's Curtain</h1>
+            <p className="text-gray-500 dark:text-gray-400">Welcome back!</p>
           </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input 
-             id="password"
-             placeholder="Enter your password"
-             value={password}
-             onChange={e => setpassword(e.target.value)} // uses to change the value of first name
-             type="password"
-             required />
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                placeholder="@example.com"
+                value={email}
+                onChange={e => setemail(e.target.value)} // uses to change the value of first name
+                type="text"
+                required />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={e => setpassword(e.target.value)} // uses to change the value of first name
+                type="password"
+                required />
+            </div>
+            <Button onClick={handleSubmit} className="w-full">Login</Button>
           </div>
-          <Button  onClick={handleSubmit} className="w-full">Login</Button>
-        </div>
-        <div className="space-y-2 text-center">
-          <Link className="text-sm underline" href="#">
-            Forgot your password?
-          </Link>
-          <p className="text-gray-500 dark:text-gray-400">
-            Don't have an account?
-            <Link className="underline" href="signup">
-              Sign up
+          <div className="space-y-2 text-center">
+            <Link className="text-sm underline" href="#">
+              Forgot your password?
             </Link>
-          </p>
+            <p className="text-gray-500 dark:text-gray-400">
+              Don't have an account?
+              <Link className="underline" href="signup">
+                Sign up
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   )
 }

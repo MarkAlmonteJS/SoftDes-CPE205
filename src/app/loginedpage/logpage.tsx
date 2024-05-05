@@ -4,14 +4,17 @@
  * @see https://v0.dev/t/VqZkKt7ikS8
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { doc, setDoc, getDoc , collection, getDocs   } from "firebase/firestore"; 
+import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore";
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import {  CarouselPlugin } from "@/components/component/carousel"
+import { CarouselPlugin } from "@/components/component/carousel"
 import Image from "next/image"
-import {useEffect, useState} from "react"
-import {firebasedb} from "../../../firebaseconfig" 
+import { useEffect, useState } from "react"
+import { firebasedb } from "../../../firebaseconfig"
 import { Sheetcheckout } from "@/components/component/sheetscheckcart";
+import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/component/dropdown-menu"
+import { useRouter } from "next/navigation"
+import { Banner } from "@/components/component/banner";
 
 // Define the type of the document data
 interface ProductSchema {
@@ -21,90 +24,57 @@ interface ProductSchema {
   quantity: number;
   tags: string[];
   // Add other properties as needed
- }
- 
+}
+
+
+
 
 export function Component() {
+
+
+
+  const router = useRouter()
   const [documents, setDocuments] = useState([]);
 
   useEffect(() => {
     const fetchDocuments = async () => {
       const querySnapshot = await getDocs(collection(firebasedb, "Products"));
-      const documents = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })); 
+      const documents = querySnapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
       console.log(documents)
     };
-  
+
     fetchDocuments();
   }, []);
-  
-  useEffect(() => {
 
-// Add a new document in collection "cities"
-setDoc(doc(firebasedb, "Products", "LA"), {
-  Image: " ",
-  name: "Curtain 2",
-  price: 20,
-  quantity: 5,
-});
-fetchDocumentTable();
-fetchDocumentData();
-//console.log("fetch data",document)
- }, [document]);
 
- async function fetchDocumentData() {
-  const docRef = doc(firebasedb, "Products", "F9siixXgPweWXiti5o9Z");
-  const docSnap = await getDoc(docRef);
- 
-  if (docSnap.exists()) {
-    // console.log("Document data:", docSnap.data());
-     const data = docSnap.data();
-    // console.log("fetch from fetch document",data)
-     //console.log("image",data.Image)
-  } else {
-     // docSnap.data() will be undefined in this case
-     console.log("No such document!");
+  async function fetchDocumentData() {
+    const docRef = doc(firebasedb, "Products", "F9siixXgPweWXiti5o9Z");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
+      const data = docSnap.data();
+      // console.log("fetch from fetch document",data)
+      //console.log("image",data.Image)
+    } else {
+      // docSnap.data() will be undefined in this case
+      console.log("No such document!");
+    }
+
   }
-  
- }
- async function fetchDocumentTable() {
-  const productsCollectionRef = collection(firebasedb, "Products");
-  const querySnapshot = await getDocs(productsCollectionRef);
- 
-  querySnapshot.forEach((doc) => {
-     console.log(doc.id, " => ", doc.data());
-     // You can process each document here as needed
-  });
- }
+  async function fetchDocumentTable() {
+    const productsCollectionRef = collection(firebasedb, "Products");
+    const querySnapshot = await getDocs(productsCollectionRef);
+
+    querySnapshot.forEach((doc) => {
+      console.log(doc.id, " => ", doc.data());
+      // You can process each document here as needed
+    });
+  }
 
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="border-b">
-        <div className="container flex items-center justify-between h-14 px-4 sm:px-6 md:px-10">
-          <nav className="hidden font-medium text-sm text-gray-500 sm:flex dark:text-gray-400">
-          </nav>
-          <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="#">
-          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
-          </Link>
-          <nav className="flex items-center gap-4 text-sm font-medium dark:text-gray-400">
-            <Link className="underline-off" href="/">
-              Home
-            </Link>
-            <Link className="underline-off" href="/">
-              Curtains
-            </Link>
-            <Link className="underline-off" href="/blinds">
-              Blinds
-            </Link>
-            <Link className="underline-off" href="/checkcart">
-              Cart
-            </Link>
-            <Sheetcheckout></Sheetcheckout>
-            <Link href={"/signup"}>
-            <Button size="sm">Log Out</Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Banner />
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
@@ -112,8 +82,8 @@ fetchDocumentData();
               <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 Beautifully-Designed. Well-made.
               </h1>
-              <p className  ="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 line-after">
- Discover our latest collection of beautifully designed curtains. Perfect for adding a touch of sophistication to your home.
+              <p className="mx-auto max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 line-after">
+                Discover our latest collection of beautifully designed curtains. Perfect for adding a touch of sophistication to your home.
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
@@ -126,31 +96,31 @@ fetchDocumentData();
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Featured Products</h2>
             </div>
             <div className="space-y-1">
-            <div className="space-y-1 mx-auto flex justify-center">
-              <CarouselPlugin/>
-            </div>
+              <div className="space-y-1 mx-auto flex justify-center">
+                <CarouselPlugin />
+              </div>
             </div>
             <div className="mx-auto grid max-w-5xl items-start gap-4 sm:grid-cols-2 md:gap-8 lg:max-w-5xl lg:grid-cols-3">
-            <div className="flex flex-col items-center justify-center space-y-2">
-    {documents.map((document, id) => (
-      <div key={id} className="flex flex-col items-center justify-center space-y-2">
-        <Image width={300} height={300}  
-          src={document.Image} // Adjust based on your data structure
-          alt="curtain brown"
-          className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
-        <div className="space-y-2">
-          <h3 className="font-bold">{document.name}</h3> {}
-          <p className="font-semibold">${document.price}</p> {}
-        </div>
-        <Button size="sm">Add to Cart</Button>
-      </div>
-    ))}
-  </div>
               <div className="flex flex-col items-center justify-center space-y-2">
-                 <Image width={300} height={300}
-                 src="https://cdn11.bigcommerce.com/s-pnuk8o2l3q/images/stencil/1280x1280/products/8880/61001/MUSBMARIN21A_01__35318.1685655215.jpg?c=1"
-                 alt="curtain brown"
-                 className="aspect-square overflow-hidden rounded-md object-cover object-center"/>
+                {documents.map((document, id) => (
+                  <div key={id} className="flex flex-col items-center justify-center space-y-2">
+                    <Image width={300} height={300}
+                      src={document.Image}
+                      alt="curtain brown"
+                      className="aspect-square overflow-hidden rounded-md object-cover object-center" />
+                    <div className="space-y-2">
+                      <h3 className="font-bold">{document.name}</h3> { }
+                      <p className="font-semibold">${document.price}</p> { }
+                    </div>
+                    <Button size="sm">Add to Cart</Button>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-col items-center justify-center space-y-2">
+                <Image width={300} height={300}
+                  src="https://cdn11.bigcommerce.com/s-pnuk8o2l3q/images/stencil/1280x1280/products/8880/61001/MUSBMARIN21A_01__35318.1685655215.jpg?c=1"
+                  alt="curtain brown"
+                  className="aspect-square overflow-hidden rounded-md object-cover object-center" />
                 <div className="space-y-2">
                   <h3 className="font-bold">Curtain 2</h3>
                   <p className="font-semibold">$49.99</p>
@@ -159,9 +129,9 @@ fetchDocumentData();
               </div>
               <div className="flex flex-col items-center justify-center space-y-2">
                 <Image height={300} width={300}
-                 src="https://www.ikea.com/ph/en/images/products/raecka-hugad-double-curtain-rod-combination-black__0893018_pe569528_s5.jpg?f=s"
-                 alt="curtain brown"
-                 className="aspect-square overflow-hidden rounded-md object-cover object-center"/>  
+                  src="https://www.ikea.com/ph/en/images/products/raecka-hugad-double-curtain-rod-combination-black__0893018_pe569528_s5.jpg?f=s"
+                  alt="curtain brown"
+                  className="aspect-square overflow-hidden rounded-md object-cover object-center" />
                 <div className="space-y-2">
                   <h3 className="font-bold">Curtain 3</h3>
                   <p className="font-semibold">$49.99</p>

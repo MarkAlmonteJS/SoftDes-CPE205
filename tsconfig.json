@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,9 +22,26 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/component/sheetscheckcart.tsx",
+    "src/app/blinds/blindcurtains.jsx",
+    "src/app/blinds/blindcurtains.jsx",
+    "src/components/component/banner.jsx",
+    "src/app/rods/curtainrod.jsx",
+    "src/app/curtains/curtainpage.jsx",
+    "src/app/blinds/blindcurtains.jsx",
+    "src/app/blinds/blindcurtains.jsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

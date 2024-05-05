@@ -4,24 +4,12 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import Link from "next/link"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Banner } from "@/components/component/banner"
 
 export function Aboutsamp() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-          <Link className="font-bold text-lg md:text-xl dark:text-gray-50 flex items-center" href="/">
-          <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
-          </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium hover:underline underline-offset-4" href="/">
-            Home
-          </Link>
-        </nav>
-      </header>
+      <Banner />
       <main className="grid gap-4">
         <section className="w-full py-12 md:py-24 lg:py-32 border-b">
           <div className="container grid items-center gap-4 px-4 md:px-6 lg:gap-10 lg:grid-cols-2">
@@ -30,8 +18,11 @@ export function Aboutsamp() {
                 About Mikee's
               </h1>
               <p className="text-gray-500 dark:text-gray-400">
-                We're on a mission to help teams build the best frontend experiences. Our platform provides the tools
-                and infrastructure to enable web development teams to innovate and ship faster.
+                Mikee’s - The Curtain Store is a specialized store for home furnishing products, primarily
+                curtains and blinds. We also sell pillows, linens, furniture, fixtures, and wall coverings.
+                Our first store opened in 1997 in Tutuban Center, Manila. As of 2024, we have 2 stores
+                – one in Quezon City, and Manila, Philippines.
+
               </p>
             </div>
             <div className="mx-auto flex items-center justify-center">
@@ -48,15 +39,26 @@ export function Aboutsamp() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight lg:text-5xl/tight">Our Mission</h2>
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight lg:text-5xl/tight">Welcome!</h2>
               <p className="max-w-[700px] text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas iste, distinctio voluptas modi quibusdam architecto eum in itaque eius debitis. Eius earum totam, repudiandae at nemo recusandae vel ducimus? Eveniet!
-              </p>
+                Welcome to Mikee’s! We're a store of curtains, blinds, pillows, linens, furniture, lightings,
+                home fabrics, wallpapers, rugs, carpets, artificial plants, tablewares, decors, and other
+                home improvement items like accordion doors, awnings, glass stickers, and window
+                films.</p>
             </div>
             <div className="space-y-4">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight lg:text-5xl/tight">Our History</h2>
               <p className="max-w-[700px] text-gray-500 dark:text-gray-400">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum ipsa veritatis voluptas consequatur ratione unde alias ab dolores! Animi consectetur soluta veniam veritatis velit dolorum quisquam fugit vero, a illo?
+                Mikee’s, our company, is named after the nickname of our founder’s only daughter. Our
+                store opened in 1997 as a creative hobby for our founder, Leni. Combining her passion
+                for design with an entrepreneurial spirit, her vision grew beyond a hobby.
+                Today, we're a leading manufacturer known for our classic and modern home
+                furnishings and textiles. We offer a unique blend of locally made and imported,
+                affordable, & luxury products. With two stores in Metro Manila (Manila & Quezon City)
+                and a growing portfolio of international projects in Tokyo, Japan, we bring our expertise
+                to homes and businesses alike.
+                Our commitment remains the same: providing a multitude of products and services at
+                wholesale and retail prices.
               </p>
             </div>
           </div>
@@ -64,56 +66,13 @@ export function Aboutsamp() {
         <section className="w-full py-12 md:py-24 lg:py-32">
           <div className="container grid items-center gap-10 px-4 md:px-6 lg:grid-cols-2 lg:gap-16">
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight lg:text-5xl/tight">Meet the Team</h2>
+              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight lg:text-5xl/tight">Our Team</h2>
               <p className="max-w-[700px] text-gray-500 dark:text-gray-400">
-                Our team is made up of experienced web developers, designers, and product managers who are passionate
-                about building the best frontend experiences. We are dedicated to helping our customers succeed by
-                providing the tools and infrastructure they need to innovate and ship faster.
+                We're a family-run business, established by our dedicated mother, Leni. Recognizing
+                her entrepreneurial spirit, her children – Michael, Mikee, and Miko, joined in to support
+                her vision. Together, we bring the strengths of a close-knit family to provide beautifully
+                designed and well-made curtains that cater to people from all walks of life.
               </p>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2">
-              <div className="flex gap-4 items-start">
-                <img
-                  alt="Avatar"
-                  className="rounded-lg w-20 overflow-hidden object-cover object-center"
-                  height="150"
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "150/150",
-                    objectFit: "cover",
-                  }}
-                  width="150"
-                />
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold">John Doe</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    John is an experienced web developer who has been working in the industry for over 10 years. He is
-                    passionate about building fast and beautiful web experiences and is dedicated to helping our
-                    customers succeed.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-4 items-start">
-                <img
-                  alt="Avatar"
-                  className="rounded-lg w-20 overflow-hidden object-cover object-center"
-                  height="150"
-                  src="/placeholder.svg"
-                  style={{
-                    aspectRatio: "150/150",
-                    objectFit: "cover",
-                  }}
-                  width="150"
-                />
-                <div className="space-y-2">
-                  <h3 className="text-xl font-bold">Jane Smith</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
-                    Jane is a frontend designer who is passionate about creating beautiful and intuitive user
-                    interfaces. She has a keen eye for detail and is dedicated to ensuring that our platform provides
-                    the best possible experience for our customers.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -124,7 +83,7 @@ export function Aboutsamp() {
           <Link className="text-xs hover:underline underline-offset-4" href="/about">
             About Us
           </Link>
-          <Link className="text-xs hover:underline underline-offset-4" href="about">
+          <Link className="text-xs hover:underline underline-offset-4" href="/contactus">
             Contact
           </Link>
         </nav>

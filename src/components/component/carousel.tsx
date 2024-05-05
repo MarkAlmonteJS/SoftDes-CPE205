@@ -15,9 +15,9 @@ import {
 } from "@/components/ui/carousel"
 
 const featuredproducts = [
-  { id:1, srcimg : prod1 , description:"Floral Curtain" } ,
-  { id:2, srcimg : prod2, description:"Gray Curtain"} ,
-  { id:3, srcimg : prod3, description:"Maroon Curtain"}
+  { id: 1, srcimg: prod1, description: "Floral Curtain" },
+  { id: 2, srcimg: prod2, description: "Gray Curtain" },
+  { id: 3, srcimg: prod3, description: "Maroon Curtain" }
 ]
 export function CarouselPlugin() {
   const plugin = React.useRef(
@@ -27,26 +27,26 @@ export function CarouselPlugin() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-xs"
+      className="w-full max-w-2xl"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
       <CarouselContent>
-      {featuredproducts.map((item, index) => (
- <CarouselItem key={item.id}>
-    <div className="p-1">
-      <Card>
-        <CardContent className="flex flex-col aspect-square items-center justify-center p-6">
-          <span className="text-4xl font-semibold"></span>
-          <Image src={item.srcimg} alt="logoimg" width={350} height={350}/>
-          <div className="flex flex-col">
-            {item.description }
-          </div>
-        </CardContent>
-      </Card>
-    </div>
- </CarouselItem>
-))}
+        {featuredproducts.map((item, index) => (
+          <CarouselItem key={item.id}>
+            <div className="p-1">
+              <Card>
+                <CardContent className="flex flex-col aspect-square items-center justify-center p-0">
+                  <span className="text-4xl font-semibold"></span>
+                  <Image src={item.srcimg} alt="logoimg" width={500} height={500} />
+                  <div className="flex flex-col">
+                    {item.description}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
 
       </CarouselContent>
       <CarouselPrevious />
