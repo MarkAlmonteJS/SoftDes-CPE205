@@ -32,6 +32,7 @@ export function Usertab() {
                     if (userSnapshot.exists()) {
                         setUserFirstName(userSnapshot.data().name);
                         setIsLoggedIn(true);
+                        console.log(userFirstName)
                     }
                 }
             } else {

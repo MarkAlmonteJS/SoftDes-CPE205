@@ -35,66 +35,67 @@ export default function BlindsPage() {
         console.log("Image URL of product:", product.Image);
       });
 
+
       setDocuments(documents);
     };
-
     fetchDocuments();
   }, []);
 
-  const addToCart = async (productId) => {
-    console.log('Adding to cart:', productId); // Debug log
-    const userId = sessionStorage.getItem("User");
-    console.log('User ID:', userId); // Debug log
+  async function getPriceFromItemId(itemId) {
+    const productsRef = collection(firebasedb, "Products");
+    const productDocRef = doc(productsRef, itemId);
+    const productDocSnapshot = await getDoc(productDocRef);
 
-    // Get the current user's cart document
-    const cartRef = doc(firebasedb, "Cart", userId);
-    const cartSnapshot = await getDoc(cartRef);
-    console.log('Cart snapshot:', cartSnapshot); // Debug log
-
-    let cartData;
-    if (!cartSnapshot.exists()) {
-      await setDoc(cartRef, {
-        items: [{ productId, quantity: 1 }], // Initialize with one item at quantity 1
-        totalitem: 1, // Initialize total to 1 since we're adding the first item
-        totalprice: 0, // Initialize total price to 0
-      });
-      console.log('Cart created with new item:', productId);
+    if (productDocSnapshot.exists()) {
+      // If the document exists, return the price
+      return productDocSnapshot.data().price;
     } else {
-      cartData = cartSnapshot.data();
-      const itemsArray = Array.isArray(cartData.items) ? cartData.items : [];
-      const existingProductIndex = itemsArray.findIndex(item => item.productId === productId);
-
-      if (existingProductIndex >= 0) {
-        // Product already exists in the cart, increment its quantity
-        const updatedQuantity = itemsArray[existingProductIndex].quantity + 1;
-        itemsArray[existingProductIndex] = { ...itemsArray[existingProductIndex], quantity: updatedQuantity };
-      } else {
-        // Product does not exist in the cart, add it with quantity 1
-        itemsArray.push({ productId, quantity: 1 });
-      }
-
-      // Fetch the price of the product being added
-      const productsCollectionRef = collection(firebasedb, "Products");
-      const productSnapshot = await getDocs(productsCollectionRef);
-      const productData = productSnapshot.docs.find(doc => doc.id === productId)?.data();
-
-      // Extract the price from the product data
-      const productPrice = productData?.price || 0;
-
-      // Calculate the new total price
-      const newTotalPrice = cartData.totalprice + productPrice;
-
-      const newTotalItem = cartData.totalitem + 1; // Increment the total item count by 1
-
-      await updateDoc(cartRef, {
-        items: itemsArray,
-        totalitem: newTotalItem,
-        totalprice: newTotalPrice, // Update the total price field
-      });
-      console.log('Existing cart updated with new item:', productId);
+      // If the document does not exist, return 0 or throw an error
+      console.error(`Product with ID ${itemId} not found.`);
+      return 0; // Or throw new Error(`Product with ID ${itemId} not found.`);
     }
-  };
+  }
 
+  const addToCart = async (itemId, quantity) => {
+    const userId = sessionStorage.getItem("User"); // Assuming you have a way to get the user ID
+    const cartRef = doc(firebasedb, "Cart", userId);
+
+    // Fetch the current cart data
+    const cartSnapshot = await getDoc(cartRef);
+    let cartData = cartSnapshot.data();
+
+    // If the cart does not exist, initialize it
+    if (!cartSnapshot.exists()) {
+      cartData = {
+        status: "active",
+        items: [],
+        quantity: [],
+        totalitem: 0,
+        totalprice: 0,
+      };
+    }
+
+    // Find the index of the item in the items array
+    const itemIndex = cartData.items.findIndex(item => item === itemId);
+
+    // If the item exists, update its quantity
+    if (itemIndex !== -1) {
+      cartData.quantity[itemIndex] += quantity;
+    } else {
+      // If the item does not exist, add it to the items array and add a corresponding quantity
+      cartData.items.push(itemId);
+      cartData.quantity.push(quantity);
+    }
+
+    // Update the total item count and total price
+    cartData.totalitem += quantity;
+    cartData.totalprice += quantity * getPriceFromItemId(itemId);
+    console.log("This is cartref:", cartRef)
+    console.log("This is cardata", cartData) // Assuming getPriceFromItemId is a function that returns the price of an item based on its ID
+
+    // Update the cart document
+    await updateDoc(cartRef, cartData);
+  };
 
 
 

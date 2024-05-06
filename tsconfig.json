@@ -33,13 +33,16 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/component/sheetscheckcart.tsx",
-    "src/app/blinds/blindcurtains.jsx",
-    "src/app/blinds/blindcurtains.jsx",
+    "src/app/blinds/blindcurtains.tsx",
+    "src/app/blinds/blindcurtains.tsx",
     "src/components/component/banner.jsx",
     "src/app/rods/curtainrod.jsx",
     "src/app/curtains/curtainpage.jsx",
-    "src/app/blinds/blindcurtains.jsx",
-    "src/app/blinds/blindcurtains.jsx"
+    "src/app/blinds/blindcurtains.tsx",
+    "src/app/blinds/blindcurtains.tsx",
+    "src/components/component/cartsamp.jsx",
+    "src/components/component/cartsamp.jsx",
+    "src/components/component/cartsamp.jsx"
   ],
   "exclude": [
     "node_modules"

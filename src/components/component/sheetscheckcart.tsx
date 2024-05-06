@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Cartsample } from "./cartsamp"
+import { CartTable } from "./cartsamp"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
@@ -31,9 +31,9 @@ export function Sheetcheckout() {
             This is your cart, once you're done you can check out.
           </SheetDescription>
         </SheetHeader>
-        <Cartsample />
+        <CartTable />
         <SheetFooter>
-          <a href="/checkcart" className="check out">
+          <a href="/checkout" className="check out">
             <Button type="submit">Check out</Button>
           </a>
         </SheetFooter>

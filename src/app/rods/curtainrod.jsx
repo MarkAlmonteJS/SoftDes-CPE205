@@ -26,7 +26,7 @@ export function RodPage() {
       const querySnapshot = await getDocs(collection(firebasedb, "Products"));
       const documents = querySnapshot.docs
         .map(doc => ({ ...doc.data(), id: doc.id }))
-        .filter(product => product.type === 'curtain'); // Filter documents where type is 'blinds'
+        .filter(product => product.type === 'rod'); // Filter documents where type is 'blinds'
 
       // Log the image URLs of all blinds products
       documents.forEach(product => {

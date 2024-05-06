@@ -9,8 +9,9 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { firebasedb, app } from "../../../firebaseconfig"
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth"
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, setDoc, } from "firebase/firestore";
 import { useState, useEffect } from "react"
+
 const auth = getAuth(app)
 
 
@@ -19,6 +20,7 @@ interface iUser {
   email: string;
   last: string;
   type: string;
+  mobile: string;
 
 }
 
@@ -30,6 +32,8 @@ export function Signup() {
     email: '',
     last: '',
     type: '',
+    mobile: '',
+
 
   });
 
@@ -37,6 +41,9 @@ export function Signup() {
   const [lastName, setln] = useState("")
   const [email, setemail] = useState("")
   const [password, setpassword] = useState("")
+  const [mobile, setmobile] = useState("")
+
+
   const handleRegister = async (event: any) => {
     event.preventDefault();
 
@@ -47,27 +54,38 @@ export function Signup() {
       console.log("User Registered with: ", userCredential.user.uid);
 
       // Prepare the data to store
-      const dataToStore: iUser = {
+      const userData: iUser = {
         name: firstName,
         email: email,
         last: lastName,
         type: 'User',
+        mobile: mobile,
       };
 
-      // Define the collection
-      const myCollection = collection(firebasedb, 'UserList');
+      // Define the collections
+      const userListCollection = collection(firebasedb, 'UserList');
+      const cartCollection = collection(firebasedb, 'Cart');
 
-      // Add the document to the collection and get the auto-generated ID
-      const newDocRef = await addDoc(myCollection, dataToStore);
+      // Add the document to the UserList collection and get the auto-generated ID
+      const newUserRef = await addDoc(userListCollection, userData);
 
-      // Update the document to include the auto-generated ID in the 'id' field
-      await setDoc(doc(firebasedb, 'UserList', userCredential.user.uid), {
-        ...dataToStore,
-        id: userCredential.user.uid
+      // Create a new Cart document for the user using the user's UID as the document name
+      const newCartData = {
+        Cartno: 1,
+        Status: "active",
+        items: [],
+        totalitem: 0,
+        totalprice: 0,
+      };
+
+      // Correctly create the Cart document using the user's UID as the document name
+      await setDoc(doc(firebasedb, 'Cart', userCredential.user.uid), {
+        ...newCartData,
+        userId: userCredential.user.uid, // Store the user's UID in the Cart document
       });
 
-      console.log('User added with ID:', userCredential.user.uid);
-      alert("User successfully Registered! Proceed to sign in"); // Consider updating this message if relevant
+      console.log('User added with ID:', newUserRef.id);
+      alert("User successfully Registered Proceed to sign in"); // Consider updating this message if relevant
     } catch (error) {
       console.error("Error adding admin or registering user: ", error);
       alert('Failed to register. Please try again.');
@@ -121,11 +139,21 @@ export function Signup() {
               type="text"
               required />
           </div>
+          <div>
+            <Label htmlFor="mobile">Mobile no.</Label>
+            <Input
+              id="mobile"
+              placeholder="eg. 0924..."
+              type="mobile"
+              value={mobile}
+              onChange={e => setmobile(e.target.value)}
+              required />
+          </div>
           <div className="space-y-2">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              placeholder="Enter your Last name"
+              placeholder="Enter your email address"
               value={email}
               onChange={e => setemail(e.target.value)} // uses to change the value of first name
               type="text" />
@@ -141,6 +169,7 @@ export function Signup() {
               required />
           </div>
           <Button onClick={handleRegister} className="w-full">Sign Up</Button>
+
           <div className="mt-4 text-center text-sm">
             Already have an account?
             <Link className="underline" href="/login">

@@ -1,9 +1,11 @@
+
 import React from 'react';
-import { Checkout } from './checkout';
+import { ProductPage } from './productpage';
 
 const Page: React.FC = () => {
     return (
-        <Checkout />
+        <ProductPage />
     );
+
 }
 export default Page;

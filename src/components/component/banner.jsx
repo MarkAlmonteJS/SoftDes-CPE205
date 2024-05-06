@@ -53,6 +53,7 @@ export function Banner() {
 
         return () => unsubscribe(); // Cleanup subscription on unmount
     }, []);
+
     function handleLogout() {
 
         sessionStorage.setItem("User", "")

@@ -28,7 +28,7 @@ export function Loginpage() {
       console.log("User Logged In with: ", userCredential.user.uid);
       sessionStorage.setItem("User", userCredential.user.uid)
       console.log("User in session storage", sessionStorage.getItem("User"))
-      router.push("/");
+      router.push("/loginedpage");
     } catch (error) {
       console.log("User Not Registered");
     }
