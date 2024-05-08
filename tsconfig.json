@@ -40,9 +40,11 @@
     "src/app/curtains/curtainpage.jsx",
     "src/app/blinds/blindcurtains.tsx",
     "src/app/blinds/blindcurtains.tsx",
-    "src/components/component/cartsamp.jsx",
-    "src/components/component/cartsamp.jsx",
-    "src/components/component/cartsamp.jsx"
+    "src/components/component/cartsamp.tsx",
+    "src/components/component/cartsamp.tsx",
+    "src/components/component/cartsamp.tsx",
+    "src/components/component/carttable.jsx",
+    "src/components/component/dialogsamp.jsx"
   ],
   "exclude": [
     "node_modules"

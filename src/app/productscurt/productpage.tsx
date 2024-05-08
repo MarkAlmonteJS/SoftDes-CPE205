@@ -15,19 +15,10 @@ export function ProductPage() {
             <Banner></Banner>
             <div className="grid md:grid-cols-2 items-start max-w-6xl px-4 mx-auto gap-6 lg:gap-12 py-6 mt-10">
                 <div className="grid gap-4 md:gap-10 items-start">
-                    <div className="flex md:hidden items-start">
-                        <div className="grid gap-4">
-                            <h1 className="font-bold text-2xl sm:text-3xl">LinenDreams Window Curtains</h1>
-                            <div>
-                                <p>Transform your space with these elegant curtains.</p>
-                            </div>
-                        </div>
-                        <div className="text-4xl font-bold ml-auto">$79</div>
-                    </div>
                     <form className="grid gap-4 md:gap-10">
                         <div className="grid gap-2">
                             <Label className="text-base" htmlFor="size">
-                                Size
+                                Name
                             </Label>
                             <RadioGroup className="flex items-center gap-2" defaultValue="m" id="size">
                                 <Label
@@ -59,6 +50,39 @@ export function ProductPage() {
                                     60x108
                                 </Label>
                             </RadioGroup>
+                            <Label className="text-base" htmlFor="size">
+                                Size
+                            </Label>
+                            <RadioGroup className="flex items-center gap-2" defaultValue="m" id="size">
+                                <Label
+                                    className="border cursor-pointer rounded-md p-2 flex items-center gap-2 [&:has(:checked)]:bg-gray-100 dark:[&:has(:checked)]:bg-gray-800"
+                                    htmlFor="size-60x63"
+                                >
+                                    <RadioGroupItem id="size-60x63" value="60x63" />
+                                    6FT
+                                </Label>
+                                <Label
+                                    className="border cursor-pointer rounded-md p-2 flex items-center gap-2 [&:has(:checked)]:bg-gray-100 dark:[&:has(:checked)]:bg-gray-800"
+                                    htmlFor="size-60x84"
+                                >
+                                    <RadioGroupItem id="size-60x84" value="60x84" />
+                                    7FT
+                                </Label>
+                                <Label
+                                    className="border cursor-pointer rounded-md p-2 flex items-center gap-2 [&:has(:checked)]:bg-gray-100 dark:[&:has(:checked)]:bg-gray-800"
+                                    htmlFor="size-60x96"
+                                >
+                                    <RadioGroupItem id="size-60x96" value="60x96" />
+                                    8FT
+                                </Label>
+                                <Label
+                                    className="border cursor-pointer rounded-md p-2 flex items-center gap-2 [&:has(:checked)]:bg-gray-100 dark:[&:has(:checked)]:bg-gray-800"
+                                    htmlFor="size-60x108"
+                                >
+                                    <RadioGroupItem id="size-60x108" value="60x108" />
+                                    9FT
+                                </Label>
+                            </RadioGroup>
                         </div>
                         <div className="grid gap-2">
                             <Label className="text-base" htmlFor="quantity">
@@ -83,22 +107,40 @@ export function ProductPage() {
                 <div className="grid gap-4 md:gap-10 items-start">
                     <div className="hidden md:flex items-start">
                         <div className="grid gap-4">
-                            <h1 className="font-bold text-3xl sm:text-4xl">LinenDreams Window Curtains</h1>
+                            <h1 className="font-bold text-3xl sm:text-4xl">Variety Name</h1>
+                            <div className="grid gap-4">
+                                <img
+                                    alt="Product Image"
+                                    className="aspect-[3/2] object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
+                                    height={400}
+                                    src="/placeholder.svg"
+                                    width={600}
+                                />
+                            </div>
+                            <h2 className="font-bold">Features:</h2>
                             <div>
-                                <p>Transform your space with these elegant curtains.</p>
+                                <p>●  Light Blocking:
+                                    These curtains effectively block sunlight and UV rays from coming into
+                                    rooms.
+                                </p>
+                                <p>
+                                    ●  Enhanced Privacy:
+                                    With its thick weave, these curtains ensure privacy from unwanted prying
+                                    eyes.
+                                </p>
+                                <p>
+                                    ●  Thermal Insulation:
+                                    Helps in regulating room temperature by keeping heat out all year long.
+                                </p>
+                                <p>
+                                    ●  Available in a variety of colors, sizes, & style
+                                </p>
+
                             </div>
                         </div>
-                        <div className="text-4xl font-bold ml-auto">$79</div>
+                        <div className="text-4xl font-bold ml-auto">Price</div>
                     </div>
-                    <div className="grid gap-4">
-                        <img
-                            alt="Product Image"
-                            className="aspect-[3/2] object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                            height={400}
-                            src="/placeholder.svg"
-                            width={600}
-                        />
-                    </div>
+
                 </div>
             </div>
         </div>

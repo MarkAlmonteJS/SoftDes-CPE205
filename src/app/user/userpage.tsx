@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { firebasedb } from '../../../firebaseconfig';
+import { Dialogsamp } from "@/components/component/dialogsamp"
 
 
 
@@ -17,31 +18,33 @@ export function Usertab() {
 
     const [userFirstName, setUserFirstName] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userLastName, setUserLastName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const router = useRouter();
 
     useEffect(() => {
         const auth = getAuth();
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (user) {
-                // User is signed in, check session storage for user token
                 const userToken = sessionStorage.getItem('User');
                 if (userToken) {
-                    // Fetch user's first name from Firebase
                     const userRef = doc(firebasedb, 'UserList', user.uid);
                     const userSnapshot = await getDoc(userRef);
                     if (userSnapshot.exists()) {
-                        setUserFirstName(userSnapshot.data().name);
+                        const userData = userSnapshot.data();
+                        setUserFirstName(userData.name);
+                        setUserLastName(userData.last);
+                        setUserEmail(userData.email);
                         setIsLoggedIn(true);
-                        console.log(userFirstName)
+                        console.log(userFirstName, userLastName, userEmail);
                     }
                 }
             } else {
-                // No user is signed in
                 setIsLoggedIn(false);
             }
         });
 
-        return () => unsubscribe(); // Cleanup subscription on unmount
+        return () => unsubscribe();
     }, []);
 
     function handleLogout() {
@@ -149,15 +152,15 @@ export function Usertab() {
                             <Card>
                                 <div>
                                     <CardHeader className="flex flex-row items-center space-y-0">
-                                        <CardTitle>Customer</CardTitle>
-                                        <Link className="text-blue-600 underline ml-auto" href="#">
-                                            Edit
-                                        </Link>
+                                        <CardTitle>Customer Information</CardTitle>
+                                        <div className="ml-10">
+                                            <Dialogsamp />
+                                        </div>
                                     </CardHeader>
                                     <CardContent className="text-sm">
                                         <div className="grid gap-1">
-                                            <div className="font-medium">John Doe</div>
-                                            <div>johndoe@example.com</div>
+                                            <div className="font-medium">{userFirstName} {userLastName}</div>
+                                            <div>{userEmail}</div>
                                         </div>
                                     </CardContent>
                                 </div>

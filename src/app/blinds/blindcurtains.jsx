@@ -111,7 +111,9 @@ export default function BlindsPage() {
         <section >
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-1">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after mb-4">Combi Blinds</h2>
+              <Link href="/productscurt">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after mb-4">Combi Blinds</h2>
+              </Link>
               <p className="mx-auto max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
 
                 Looking for low-maintenance yet functional window treatment solution? Our
