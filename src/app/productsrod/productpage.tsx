@@ -94,9 +94,9 @@ export function ProductPage() {
                             <div className="grid gap-4">
                                 <img
                                     alt="Product Image"
-                                    className="object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
+                                    className=" object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
                                     height={400}
-                                    src={"/Assets/Blockout Curtains with Swatches/blockout.png"}
+                                    src="/Assets/Curtain Rods/IMG_5836.JPG"
                                     width={600}
                                 />
                             </div>

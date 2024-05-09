@@ -71,6 +71,7 @@ export default function Component() {
               </p>
             </div>
             <div className="mx-auto w-full max-w-sm space-y-2">
+
             </div>
           </div>
         </section>
@@ -79,6 +80,16 @@ export default function Component() {
             <div className="space-y-1">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Featured Products</h2>
             </div>
+            <div>
+
+
+
+
+
+            </div>
+
+
+
             <div className="space-y-1">
               <div className="space-y-1 mx-auto flex justify-center">
                 <CarouselPlugin />

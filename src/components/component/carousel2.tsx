@@ -47,7 +47,6 @@ export function Carouselcurtain() {
                         </div>
                     </CarouselItem>
                 ))}
-
             </CarouselContent>
             <CarouselPrevious />
             <CarouselNext />

@@ -54,7 +54,9 @@ export function RodPage() {
         <section >
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-1">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after">Curtain Rod</h2>
+              <Link className="link-style" href="/productsrod">
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after">Curtain Rod</h2>
+              </Link>
               <p className="mx-auto max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                 Our collection of decorative rods can add style to your windows. From classic,
                 modern, or industrial, there's a perfect match for your space!

@@ -8,6 +8,8 @@ import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Banner } from "@/components/component/banner"
+import { Carouselblinds } from "@/components/component/carousel1"
+
 
 export function ProductPage() {
     return (
@@ -92,33 +94,20 @@ export function ProductPage() {
                         <div className="grid gap-4">
                             <h1 className="font-bold text-3xl sm:text-4xl">Variety Name</h1>
                             <div className="grid gap-4">
-                                <img
-                                    alt="Product Image"
-                                    className="object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                                    height={400}
-                                    src={"/Assets/Blockout Curtains with Swatches/blockout.png"}
-                                    width={600}
-                                />
+                                <Carouselblinds />
                             </div>
                             <h2 className="font-bold">Features:</h2>
                             <div>
-                                <p>●  Light Blocking:
-                                    These curtains effectively block sunlight and UV rays from coming into
-                                    rooms.
-                                </p>
-                                <p>
-                                    ●  Enhanced Privacy:
-                                    With its thick weave, these curtains ensure privacy from unwanted prying
-                                    eyes.
-                                </p>
-                                <p>
-                                    ●  Thermal Insulation:
-                                    Helps in regulating room temperature by keeping heat out all year long.
-                                </p>
-                                <p>
-                                    ●  Available in a variety of colors, sizes, & style
-                                </p>
+                                <p>● Dual Layer Design
+                                    The alternating opaque and sheer fabric stripes allow you to precisely
+                                    adjust the amount sunlight entering your room.
 
+                                </p>
+                                <p>
+                                    ● Easy Maintenance
+                                    Simply use a vacuum cleaner or a damp cloth to maintain or clean these
+                                    blinds.
+                                </p>
                             </div>
                         </div>
                         <div className="text-4xl font-bold ml-auto">Price</div>

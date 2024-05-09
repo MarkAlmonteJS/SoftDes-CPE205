@@ -2,10 +2,11 @@
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
-import prod1 from "../../../public/Assets/IMG_9679.jpeg"
+import prod1 from "../../../public/Assets/Combi Blinds/kara b_o .png"
 import { Card, CardContent } from "@/components/ui/card"
-import prod2 from "../../../public/Assets/IMG_9680.jpeg"
-import prod3 from "../../../public/Assets/IMG_9681.jpeg"
+import prod2 from "../../../public/Assets/Combi Blinds/lucas b_o.png"
+import prod3 from "../../../public/Assets/Combi Blinds/soft 1.png"
+import prod4 from "../../../public/Assets/Combi Blinds/soft 2.png"
 import {
     Carousel,
     CarouselContent,
@@ -15,9 +16,10 @@ import {
 } from "@/components/ui/carousel"
 
 const featuredproducts = [
-    { id: 1, srcimg: prod1, description: "Floral Curtain" },
-    { id: 2, srcimg: prod2, description: "Gray Curtain" },
-    { id: 3, srcimg: prod3, description: "Maroon Curtain" }
+    { id: 1, srcimg: prod1, description: "Kara" },
+    { id: 2, srcimg: prod2, description: "Lucas" },
+    { id: 3, srcimg: prod3, description: "Soft" },
+    { id: 4, srcimg: prod4, description: "Soft" }
 ]
 export function Carouselblinds() {
     const plugin = React.useRef(
