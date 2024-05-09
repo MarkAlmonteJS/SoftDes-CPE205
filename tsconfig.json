@@ -44,7 +44,8 @@
     "src/components/component/cartsamp.tsx",
     "src/components/component/cartsamp.tsx",
     "src/components/component/carttable.jsx",
-    "src/components/component/dialogsamp.jsx"
+    "src/components/component/dialogsamp.jsx",
+    "src/app/checkout/checkout.jsx"
   ],
   "exclude": [
     "node_modules"
