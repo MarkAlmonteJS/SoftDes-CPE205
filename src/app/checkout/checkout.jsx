@@ -13,7 +13,6 @@ import { getDoc, doc } from "firebase/firestore"
 
 export function Checkout(Products, quantity) {
 
-
     const [cart, setCart] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);

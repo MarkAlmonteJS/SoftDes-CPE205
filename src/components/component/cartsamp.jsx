@@ -26,6 +26,28 @@ export const CartTable = () => {
     return productsData;
   };
 
+  const removeProductFromCart = async (productId) => {
+    const userId = sessionStorage.getItem("User");
+    if (!userId) {
+      console.error("User not found");
+      return;
+    }
+
+    const cartRef = doc(firebasedb, "Cart", userId);
+    const cartSnap = await getDoc(cartRef);
+
+    if (cartSnap.exists()) {
+      const cartData = cartSnap.data();
+      const updatedItems = cartData.items.filter(item => item.productId !== productId);
+
+      await setDoc(cartRef, { items: updatedItems }, { merge: true });
+      setCart(updatedItems);
+      setQuantities(updatedItems);
+    } else {
+      console.error("No cart found for this user.");
+    }
+  };
+
   const updateQuantity = async (productId, newQuantity) => {
     const userId = sessionStorage.getItem("User");
     if (!userId) {
@@ -60,6 +82,11 @@ export const CartTable = () => {
         await setDoc(cartRef, { items: updatedItems }, { merge: true });
         setCart(updatedItems);
         setQuantities(updatedItems);
+
+        // If the new quantity is 0, remove the product from the cart
+        if (newQuantity === 0) {
+          removeProductFromCart(productId);
+        }
       } else {
         console.error("Product not found in Products collection.");
       }

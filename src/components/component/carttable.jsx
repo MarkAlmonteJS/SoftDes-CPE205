@@ -1,3 +1,4 @@
+import React from 'react'; // Ensure React is imported if not already done
 import {
   Table,
   TableBody,
@@ -7,9 +8,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/table"; // Ensure these imports are correct
 import { Button } from "../ui/button";
-
 
 export function Carttable({ Products, quantity, updateQuantity }) {
   console.log("this is the quantity in table: ", quantity);
@@ -20,6 +20,7 @@ export function Carttable({ Products, quantity, updateQuantity }) {
     console.log(`Found quantity object for product ID ${productId}:`, productQuantityObj);
     return productQuantityObj ? productQuantityObj.quantity : 0;
   };
+
 
   return (
     <Table className="table">
@@ -38,14 +39,19 @@ export function Carttable({ Products, quantity, updateQuantity }) {
             <TableCell className="font-medium">{product.name}</TableCell>
             <TableCell className="font-medium">Php {product.price}</TableCell>
             <TableCell className="font-medium">
-              <Button className="mr-2" size="sm" onClick={() => updateQuantity(product.id, getQuantity(product.id) - 1)}>-</Button>
+              <Button className="mr-2" size="sm" onClick={() => {
+                const newQuantity = getQuantity(product.id) - 1;
+                if (newQuantity > 0) {
+                  updateQuantity(product.id, newQuantity);
+                } else {
+                  updateQuantity(product.id, 0); // This will trigger the removal logic
+                }
+              }}>-</Button>
               {getQuantity(product.id)}
               <Button className="ml-2" size="sm" onClick={() => updateQuantity(product.id, getQuantity(product.id) + 1)}>+ </Button>
             </TableCell>
             <TableCell className="text-right">
-
               {product.price * getQuantity(product.id)}
-
             </TableCell>
           </TableRow>
         ))}
@@ -54,7 +60,6 @@ export function Carttable({ Products, quantity, updateQuantity }) {
         <TableRow>
           <TableCell colSpan={3} className="text-right font-bold">Total</TableCell>
           <TableCell className="text-right">
-            {/* Calculate total amount for all products */}
             {Products.reduce((total, product) => total + product.price * getQuantity(product.id), 0)}
           </TableCell>
         </TableRow>
