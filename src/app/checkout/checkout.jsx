@@ -9,7 +9,9 @@ import Link from "next/link"
 import { Carttable } from "@/components/component/carttable"
 import { useEffect, useState } from "react"
 import { firebasedb } from "../../../firebaseconfig"
-import { getDoc, doc } from "firebase/firestore"
+import { getDoc, doc, addDoc, collection, updateDoc } from "firebase/firestore"
+import { Cartdemo } from "@/components/component/cartdemo"
+
 
 export function Checkout(Products, quantity) {
 
@@ -17,6 +19,49 @@ export function Checkout(Products, quantity) {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [quantities, setQuantities] = useState([]);
+    const [transactionNo, setTransactionNo] = useState(0); // State to keep track of the next transaction number
+    const [address, setAddress] = useState('');
+    const [contactNo, setContactNo] = useState('');
+
+
+    const placeOrder = async () => {
+        const date = new Date().toISOString(); // Current date and time
+        const status = "Pending"; // Initial status, can be updated later
+
+        // Fetch the cart document to get the total price
+        const cartRef = doc(firebasedb, "Cart", sessionStorage.getItem("User"));
+        const cartSnap = await getDoc(cartRef);
+
+        if (cartSnap.exists()) {
+            const cartData = cartSnap.data();
+            const totalprice = cartData.totalprice; // Extracting the total price from the cart document
+
+            // Generate a random transaction number
+            const transactionNumber = Math.floor(Math.random() * 1000000); // Generates a random number between 0 and 999999
+
+            // Add a new transaction document with a generated ID
+            const transactionRef = await addDoc(collection(firebasedb, "Transaction"), {
+                userID: sessionStorage.getItem("User"),
+                date,
+                totalprice: totalprice,
+                status,
+                address: address, // Adding the user's address
+                contactNo: contactNo, // Adding the user's contact number
+                itemList: cart.map(item => item.productId), // Assuming each item has a productId property
+                transactionNumber: transactionNumber, // Adding the random transaction number
+            });
+
+            console.log("Order placed successfully Transaction ID:", transactionRef.id, "Transaction Number:", transactionNumber);
+
+            // Update the cart document to clear its items
+            await updateDoc(cartRef, {
+                items: [] // Clear the cart items
+            });
+        } else {
+            console.error("Cart document not found.");
+        }
+    };
+
 
     const fetchProductDetails = async (cartItems) => {
         const productPromises = cartItems.map(item => {
@@ -78,7 +123,7 @@ export function Checkout(Products, quantity) {
                         <div className="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-medium">Your Cart</div>
                         <div className="p-4 space-y-4">
                             <div className="items-center gap-4">
-                                <Carttable Products={products} quantity={quantities} />
+                                <Cartdemo Products={products} quantity={quantities} />
                             </div>
                         </div>
                     </div>
@@ -86,7 +131,7 @@ export function Checkout(Products, quantity) {
                 <div className="col-span-1 lg:col-span-1 mt-10">
                     <div className="border rounded-lg overflow-hidden">
                     </div>
-                    <form className="border rounded-lg overflow-hidden mt-8">
+                    <form className="border rounded-lg overflow-hidden mt-8" onSubmit={(e) => { e.preventDefault(); placeOrder(); }}>
                         <div className="bg-gray-100 dark:bg-gray-800 px-4 py-3 font-medium">Shipping & Payment</div>
                         <div className="p-4 space-y-4">
                             <div className="grid gap-2">
@@ -95,7 +140,7 @@ export function Checkout(Products, quantity) {
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="address">Address</Label>
-                                <Textarea id="address" placeholder="Enter your address" rows={3} />
+                                <Textarea id="address" placeholder="Enter your address" rows={3} onChange={(e) => setAddress(e.target.value)} />
                             </div>
                             <div className="grid gap-2">
                                 <Label htmlFor="email">Contact No.</Label>

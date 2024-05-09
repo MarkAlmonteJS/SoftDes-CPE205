@@ -100,26 +100,6 @@ export function ProductPage() {
                                     width={600}
                                 />
                             </div>
-                            <h2 className="font-bold">Features:</h2>
-                            <div>
-                                <p>●  Light Blocking:
-                                    These curtains effectively block sunlight and UV rays from coming into
-                                    rooms.
-                                </p>
-                                <p>
-                                    ●  Enhanced Privacy:
-                                    With its thick weave, these curtains ensure privacy from unwanted prying
-                                    eyes.
-                                </p>
-                                <p>
-                                    ●  Thermal Insulation:
-                                    Helps in regulating room temperature by keeping heat out all year long.
-                                </p>
-                                <p>
-                                    ●  Available in a variety of colors, sizes, & style
-                                </p>
-
-                            </div>
                         </div>
                         <div className="text-4xl font-bold ml-auto">Price</div>
                     </div>

@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { collection, getDoc, doc, setDoc } from 'firebase/firestore'; // Removed duplicate import
+import { collection, getDoc, doc, setDoc, updateDoc } from 'firebase/firestore'; // Removed duplicate import
 import { firebasedb } from '../../../firebaseconfig';
 import { User } from "lucide-react";
 import { Carttable } from './carttable'
+import { Cartdemo } from "./cartdemo";
 
 export const CartTable = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [quantities, setQuantities] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const getQuantity = (productId) => {
+    return quantities.find(q => q.productId === productId)?.quantity || 0;
+  };
 
   const fetchProductDetails = async (cartItems) => {
     const productPromises = cartItems.map(item => {
@@ -23,9 +29,13 @@ export const CartTable = () => {
     }));
 
     setProducts(productsData);
+
+    // Calculate total price
+    const totalPrice = productsData.reduce((acc, product) => acc + product.price * getQuantity(product.id), 0);
+    setTotalPrice(totalPrice); // Update total price state
+
     return productsData;
   };
-
   const removeProductFromCart = async (productId) => {
     const userId = sessionStorage.getItem("User");
     if (!userId) {
@@ -95,6 +105,18 @@ export const CartTable = () => {
     }
   };
 
+  const updateCartTotalPrice = async () => {
+    const userId = sessionStorage.getItem("User");
+    if (!userId) {
+      console.error("User not found");
+      return;
+    }
+    const cartRef = doc(firebasedb, "Cart", userId);
+    await updateDoc(cartRef, { totalprice: totalPrice }); // Update total price in the Cart document
+  };
+
+
+
   const fetchCart = async () => {
     const userId = sessionStorage.getItem("User");
     if (!userId) {
@@ -116,6 +138,10 @@ export const CartTable = () => {
   };
 
   useEffect(() => {
+    updateCartTotalPrice();
+  }, [totalPrice]);
+
+  useEffect(() => {
     fetchCart();
   }, []);
 
@@ -125,12 +151,10 @@ export const CartTable = () => {
     }
   }, [cart]);
 
+
   return (
     <div className="border rounded-lg overflow-hidden">
       <Carttable Products={products} quantity={quantities} updateQuantity={updateQuantity} />
     </div>
   );
 };
-
-
-
