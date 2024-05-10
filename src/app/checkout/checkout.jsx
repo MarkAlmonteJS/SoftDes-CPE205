@@ -6,11 +6,13 @@ import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@
 import { Button } from "@/components/ui/button"
 import { Banner } from "@/components/component/banner"
 import Link from "next/link"
-import { Carttable } from "@/components/component/carttable"
 import { useEffect, useState } from "react"
 import { firebasedb } from "../../../firebaseconfig"
 import { getDoc, doc, addDoc, collection, updateDoc } from "firebase/firestore"
 import { Cartdemo } from "@/components/component/cartdemo"
+import { useRouter } from "next/navigation"
+
+
 
 
 export function Checkout(Products, quantity) {
@@ -22,11 +24,14 @@ export function Checkout(Products, quantity) {
     const [transactionNo, setTransactionNo] = useState(0); // State to keep track of the next transaction number
     const [address, setAddress] = useState('');
     const [contactNo, setContactNo] = useState('');
+    const router = useRouter()
+
 
 
     const placeOrder = async () => {
         const date = new Date().toISOString(); // Current date and time
         const status = "Pending"; // Initial status, can be updated later
+
 
         // Fetch the cart document to get the total price
         const cartRef = doc(firebasedb, "Cart", sessionStorage.getItem("User"));
@@ -50,13 +55,14 @@ export function Checkout(Products, quantity) {
                 itemList: cart.map(item => item.productId), // Assuming each item has a productId property
                 transactionNumber: transactionNumber, // Adding the random transaction number
             });
-
+            alert(`Order successfully placed with order number ${transactionNumber}`);
             console.log("Order placed successfully Transaction ID:", transactionRef.id, "Transaction Number:", transactionNumber);
 
             // Update the cart document to clear its items
             await updateDoc(cartRef, {
                 items: [] // Clear the cart items
             });
+            router.push('/user');
         } else {
             console.error("Cart document not found.");
         }
