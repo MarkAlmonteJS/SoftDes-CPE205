@@ -1,52 +1,53 @@
 'use client'
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card"
-import { Banner } from "@/components/component/banner"
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table";
+import { CardTitle, CardHeader, CardContent, Card } from "@/components/ui/card";
+import { Banner } from "@/components/component/banner";
 import { useEffect, useState } from 'react';
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; // Corrected import path
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { firebasedb } from '../../../firebaseconfig';
-import { Dialogsamp } from "@/components/component/dialogsamp"
-
-
+import { Dialogsamp } from "@/components/component/dialogsamp";
 
 export function Usertab() {
+    const [userDetails, setUserDetails] = useState(null); // State to hold user details
+    const [transactions, setTransactions] = useState([]);
+    const router = useRouter();
 
-    const [userFirstName, setUserFirstName] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [userLastName, setUserLastName] = useState('');
-    const [userEmail, setUserEmail] = useState('');
+    // Function to fetch user details
+    const fetchUserDetails = async () => {
+        const userId = sessionStorage.getItem('User');
+        if (!userId) return;
 
+        const userRef = doc(firebasedb, 'UserList', userId); // Adjust the path to your 'Users' collection
+        const userSnapshot = await getDoc(userRef);
+        if (userSnapshot.exists()) {
+            setUserDetails({
+                firstName: userSnapshot.data().name,
+                lastName: userSnapshot.data().last,
+                email: userSnapshot.data().email,
+            });
+        }
+    };
+
+    // Fetch transactions and user details when component mounts
     useEffect(() => {
-        const auth = getAuth();
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                const userToken = sessionStorage.getItem('User');
-                if (userToken) {
-                    const userRef = doc(firebasedb, 'UserList', user.uid);
-                    const userSnapshot = await getDoc(userRef);
-                    if (userSnapshot.exists()) {
-                        const userData = userSnapshot.data();
-                        setUserFirstName(userData.name);
-                        setUserLastName(userData.last);
-                        setUserEmail(userData.email);
-                        setIsLoggedIn(true);
-                        console.log(userFirstName, userLastName, userEmail);
-                    }
-                }
-            } else {
-                setIsLoggedIn(false);
-            }
-        });
-
-        return () => unsubscribe();
+        fetchTransactions();
+        fetchUserDetails();
     }, []);
 
-    const [transactions, setTransactions] = useState([]);
+    // Fetch transactions whenever the component updates
+    useEffect(() => {
+        fetchTransactions();
+    }, [transactions]);
+
+    // Fetch user details whenever the component updates
+    useEffect(() => {
+        fetchUserDetails();
+    }, [userDetails]);
 
     const fetchTransactions = async () => {
         const userId = sessionStorage.getItem('User');
@@ -62,16 +63,14 @@ export function Usertab() {
 
         setTransactions(transactionsData);
     };
-    useEffect(() => {
-        fetchTransactions();
-    }, []);
+
     return (
         <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
                 <div className="flex h-full max-h-screen flex-col gap-2">
                     <div className="flex h-[60px] items-center border-b px-6">
                         Hello!,
-                        {isLoggedIn && <span className="text-lg font-bold"> {userFirstName}</span>}
+                        {userDetails && <span className="text-lg font-bold"> {userDetails.firstName} {userDetails.lastName}</span>}
                     </div>
                     <div className="flex-1 overflow-auto py-2">
                     </div>
@@ -104,7 +103,7 @@ export function Usertab() {
                                                 <TableCell style={{ fontWeight: 'bold', color: transaction.status === 'Pending' ? 'orange' : transaction.status === 'Completed' ? 'green' : 'black' }}>
                                                     {transaction.status}
                                                 </TableCell>
-                                                <TableCell className="text-right">PHP{transaction.totalprice.toFixed(2)}</TableCell>
+                                                <TableCell className="text-right">₱{transaction.totalprice.toFixed(2)}</TableCell>
                                                 <TableCell className="text-right">
                                                     {/* Example action button */}
                                                     <Button onClick={() => console.log('View Details')}>View</Button>
@@ -129,9 +128,8 @@ export function Usertab() {
                                     </CardHeader>
                                     <CardContent className="text-sm">
                                         <div className="grid gap-1">
-
-                                            <div className="font-medium">{userFirstName} {userLastName}</div>
-                                            <div>{userEmail}</div>
+                                            <div className="font-medium">{userDetails?.firstName} {userDetails?.lastName}</div>
+                                            <div>{userDetails?.email}</div>
                                         </div>
                                     </CardContent>
                                 </div>
@@ -152,7 +150,5 @@ export function Usertab() {
                 </footer>
             </div>
         </div>
-    )
+    );
 }
-
-
