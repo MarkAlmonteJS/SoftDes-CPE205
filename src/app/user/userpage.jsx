@@ -8,7 +8,7 @@ import { Banner } from "@/components/component/banner"
 import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation";
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import { firebasedb } from '../../../firebaseconfig';
 import { Dialogsamp } from "@/components/component/dialogsamp"
 
@@ -20,7 +20,6 @@ export function Usertab() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userLastName, setUserLastName] = useState('');
     const [userEmail, setUserEmail] = useState('');
-    const router = useRouter();
 
     useEffect(() => {
         const auth = getAuth();
@@ -47,13 +46,25 @@ export function Usertab() {
         return () => unsubscribe();
     }, []);
 
-    function handleLogout() {
+    const [transactions, setTransactions] = useState([]);
 
-        sessionStorage.setItem("User", "")
-        router.push("/")
-    }
+    const fetchTransactions = async () => {
+        const userId = sessionStorage.getItem('User');
+        if (!userId) return;
 
+        const transactionRef = collection(firebasedb, 'Transaction');
+        const snapshot = await getDocs(transactionRef);
+        const transactionsData = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data(),
+            status: doc.data().status,
+        }));
 
+        setTransactions(transactionsData);
+    };
+    useEffect(() => {
+        fetchTransactions();
+    }, []);
     return (
         <div className="grid min-h-screen w-full overflow-hidden lg:grid-cols-[280px_1fr]">
             <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
@@ -75,72 +86,31 @@ export function Usertab() {
                                 <h1 className="font-semibold text-lg md:text-xl">Your Orders</h1>
                             </div>
                             <div className="border shadow-sm rounded-lg">
-                                <Table>
+                                <Table className="w-full max-w-md mx-auto">
                                     <TableHeader>
                                         <TableRow>
                                             <TableHead className="w-[100px]">Order</TableHead>
                                             <TableHead className="min-w-[150px]">Date</TableHead>
-                                            <TableHead className="hidden md:table-cell">Items</TableHead>
+                                            <TableHead className="min-w-[150px]">Status</TableHead>
                                             <TableHead className="text-right">Total</TableHead>
                                             <TableHead className="text-right">Actions</TableHead>
                                         </TableRow>
                                     </TableHeader>
                                     <TableBody>
-                                        <TableRow>
-                                            <TableCell className="font-medium">#3210</TableCell>
-                                            <TableCell>June 23, 2022</TableCell>
-                                            <TableCell className="hidden md:table-cell">2 items</TableCell>
-                                            <TableCell className="text-right">$120.00</TableCell>
-                                            <TableCell className="text-right">
-                                                <Link className="text-blue-600 underline" href="#">
-                                                    View
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="font-medium">#3209</TableCell>
-                                            <TableCell>May 15, 2022</TableCell>
-                                            <TableCell className="hidden md:table-cell">3 items</TableCell>
-                                            <TableCell className="text-right">$149.00</TableCell>
-                                            <TableCell className="text-right">
-                                                <Link className="text-blue-600 underline" href="#">
-                                                    View
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="font-medium">#3204</TableCell>
-                                            <TableCell>April 2, 2022</TableCell>
-                                            <TableCell className="hidden md:table-cell">1 item</TableCell>
-                                            <TableCell className="text-right">$64.75</TableCell>
-                                            <TableCell className="text-right">
-                                                <Link className="text-blue-600 underline" href="#">
-                                                    View
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="font-medium">#3203</TableCell>
-                                            <TableCell>March 12, 2022</TableCell>
-                                            <TableCell className="hidden md:table-cell">1 item</TableCell>
-                                            <TableCell className="text-right">$34.50</TableCell>
-                                            <TableCell className="text-right">
-                                                <Link className="text-blue-600 underline" href="#">
-                                                    View
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
-                                        <TableRow>
-                                            <TableCell className="font-medium">#3202</TableCell>
-                                            <TableCell>February 28, 2022</TableCell>
-                                            <TableCell className="hidden md:table-cell">2 items</TableCell>
-                                            <TableCell className="text-right">$89.99</TableCell>
-                                            <TableCell className="text-right">
-                                                <Link className="text-blue-600 underline" href="#">
-                                                    View
-                                                </Link>
-                                            </TableCell>
-                                        </TableRow>
+                                        {transactions.map((transaction, index) => (
+                                            <TableRow key={index}>
+                                                <TableCell className="font-medium">#{transaction.transactionNumber}</TableCell>
+                                                <TableCell>{new Date(transaction.date).toLocaleDateString()}</TableCell>
+                                                <TableCell style={{ fontWeight: 'bold', color: transaction.status === 'Pending' ? 'orange' : transaction.status === 'Completed' ? 'green' : 'black' }}>
+                                                    {transaction.status}
+                                                </TableCell>
+                                                <TableCell className="text-right">PHP{transaction.totalprice.toFixed(2)}</TableCell>
+                                                <TableCell className="text-right">
+                                                    {/* Example action button */}
+                                                    <Button onClick={() => console.log('View Details')}>View</Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
                                     </TableBody>
                                 </Table>
                             </div>
@@ -159,6 +129,7 @@ export function Usertab() {
                                     </CardHeader>
                                     <CardContent className="text-sm">
                                         <div className="grid gap-1">
+
                                             <div className="font-medium">{userFirstName} {userLastName}</div>
                                             <div>{userEmail}</div>
                                         </div>
