@@ -14,6 +14,7 @@ import { firebasedb } from "../../firebaseconfig"
 import { Sheetcheckout } from "@/components/component/sheetscheckcart";
 import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/component/dropdown-menu"
 import { Banner } from "@/components/component/banner";
+import { Accordionclients } from "@/components/component/accordionclients";
 
 
 // Define the type of the document data
@@ -80,19 +81,29 @@ export default function Component() {
             <div className="space-y-1">
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Featured Projects</h2>
             </div>
-            <div className="space-y-1">
+            <div>
               <div className="space-y-1 mx-auto flex justify-center">
                 <CarouselPlugin />
               </div>
             </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-4 sm:grid-cols-2 md:gap-8 lg:max-w-5xl lg:grid-cols-3">
-              <div className="flex flex-col items-center justify-center space-y-2">
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2">
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2">
-              </div>
-              <div className="flex flex-col items-center justify-center space-y-2">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+              <p className="text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400 line-after mb-8">
+                For over 27 years, we have brought beautifully designed and well-made home furnishing products to homes and offices nationwide and even internationally. We specialize in customizing curtains, blinds, and furniture that will suit your style and space. Ready to see the Mikee's difference? Browse our photo gallery for a glimpse of our beautifully designed and well-made projects, expertly crafted to last.
+              </p>
+            </div>
+            <div>
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Discover our Clients</h2>
+            </div>
+            <div>
+              <p>
+                Operating for more than two decades, our company has furnished and decorated
+                a wide range of real estate properties starting from the most accessible to the most
+                exclusive, both locally and internationally. Listed are several of these residential,
+                commercial, and mixed-use properties we have done to date.
+
+              </p>
+              <div>
+                <Accordionclients />
               </div>
             </div>
           </div>

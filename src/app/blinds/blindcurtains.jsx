@@ -109,19 +109,28 @@ export default function BlindsPage() {
         <section >
           <div className="container grid items-center gap-4 px-4 text-center md:px-6 lg:gap-10">
             <div className="space-y-1">
-              <Link className="link-style" href="/productsblind">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after mb-4">Combi Blinds</h2>
-              </Link>
+
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after mb-4 link-style">Combi Blinds</h2>
+
               <p className="mx-auto max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
                 Looking for low-maintenance yet functional window treatment solution? Our
                 combi blinds are easy to clean, affordable, and durable!
               </p>
             </div>
-            <div className="col-flex items-center justify-center">
-              <img
-                src="/Assets/Combi Blinds/IMG20220730185730.JPG"
-                width={800} height={800}
-              />
+            <div className="mx-auto flex flex-wrap justify-center gap-4 sm:gap-8 lg:justify-start">
+              {documents.map((product, id) => (
+                <div key={id} className="flex flex-col items-center justify-center space-y-2 w-full sm:w-auto">
+                  <img width={300} height={300}
+                    src={`${product.Image}`}
+                    alt="Product Image"
+                    className="aspect-square overflow-hidden rounded-md object-cover object-center" />
+                  <div className="space-y-2">
+                    <h3 className="font-bold">{product.name}</h3>
+                    <p className="font-semibold">₱{product.price}</p>
+                  </div>
+                  <Button size="sm" onClick={() => addToCart(product.id)}>Add to Cart</Button>
+                </div>
+              ))}
             </div>
             <div className="space-y-1">
               <div className="space-y-1 mx-auto flex justify-center">

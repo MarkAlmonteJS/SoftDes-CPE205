@@ -4,7 +4,7 @@
  * @see https://v0.dev/t/VqZkKt7ikS8
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, getDocs, updateDoc } from "firebase/firestore";
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CarouselPlugin } from "@/components/component/carousel"
