@@ -96,8 +96,6 @@ export default function BlindsPage() {
   };
 
 
-
-
   return (
     <div className="flex flex-col min-h-[100dvh]">
       <Banner />
@@ -115,47 +113,21 @@ export default function BlindsPage() {
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl line-after mb-4">Combi Blinds</h2>
               </Link>
               <p className="mx-auto max-w-[600px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-
                 Looking for low-maintenance yet functional window treatment solution? Our
                 combi blinds are easy to clean, affordable, and durable!
               </p>
+            </div>
+            <div className="col-flex items-center justify-center">
+              <img
+                src="/Assets/Combi Blinds/IMG20220730185730.JPG"
+                width={800} height={800}
+              />
             </div>
             <div className="space-y-1">
               <div className="space-y-1 mx-auto flex justify-center">
               </div>
             </div>
-            <div className="mx-auto flex flex-wrap justify-center gap-4 sm:gap-8 lg:justify-start">
-              {documents.map((product, id) => (
-                <div key={id} className="flex flex-col items-center justify-center space-y-2 w-full sm:w-auto">
-                  <img width={300} height={300}
-                    src={`${product.Image}`}
-                    alt="Product Image"
-                    className="aspect-square overflow-hidden rounded-md object-cover object-center" />
-                  <div className="space-y-2">
-                    <h3 className="font-bold">{product.name}</h3>
-                    <p className="font-semibold">₱{product.price}</p>
-                  </div>
-                  <div className="flex space-x-2">
-                    <label className="flex items-center">
-                      <input type="radio" name={`product-${id}`} value="option1" className="hidden" />
-                      <span className="w-4 h-4 bg-white border-2 rounded-full"></span>
-                      <span className="ml-2">Option 1</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="radio" name={`product-${id}`} value="option2" className="hidden" />
-                      <span className="w-4 h-4 bg-white border-2 rounded-full"></span>
-                      <span className="ml-2">Option 2</span>
-                    </label>
-                    <label className="flex items-center">
-                      <input type="radio" name={`product-${id}`} value="option3" className="hidden" />
-                      <span className="w-4 h-4 bg-white border-2 rounded-full"></span>
-                      <span className="ml-2">Option 3</span>
-                    </label>
-                  </div>
-                  <Button size="sm" onClick={() => addToCart(product.id)}>Add to Cart</Button>
-                </div>
-              ))}
-            </div>
+
           </div>
         </section>
       </main>

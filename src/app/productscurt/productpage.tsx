@@ -8,6 +8,7 @@ import { RadioGroupItem, RadioGroup } from "@/components/ui/radio-group"
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Banner } from "@/components/component/banner"
+import { Carouselcurtain } from "@/components/component/carousel2"
 
 export function ProductPage() {
     return (
@@ -91,15 +92,7 @@ export function ProductPage() {
                     <div className="hidden md:flex items-start">
                         <div className="grid gap-4">
                             <h1 className="font-bold text-3xl sm:text-4xl">Variety Name</h1>
-                            <div className="grid gap-4">
-                                <img
-                                    alt="Product Image"
-                                    className="object-cover border border-gray-200 w-full rounded-lg overflow-hidden dark:border-gray-800"
-                                    height={400}
-                                    src={"/Assets/Blockout Curtains with Swatches/blockout.png"}
-                                    width={600}
-                                />
-                            </div>
+                            <Carouselcurtain />
                             <h2 className="font-bold">Features:</h2>
                             <div>
                                 <p>●  Light Blocking:

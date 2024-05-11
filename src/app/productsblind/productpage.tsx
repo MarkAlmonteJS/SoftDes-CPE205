@@ -11,6 +11,11 @@ import { Banner } from "@/components/component/banner"
 import { Carouselblinds } from "@/components/component/carousel1"
 
 
+
+
+
+
+
 export function ProductPage() {
     return (
         <div>

@@ -44,8 +44,8 @@ export function CarouselPlugin() {
     <Carousel
       plugins={[plugin.current]}
       className="w-full max-w-2xl"
-      onMouseEnter={plugin.current.stop}
-      onMouseLeave={plugin.current.reset}
+      onMouseEnter={() => plugin.current.stop()}
+      onMouseLeave={() => plugin.current.play()}
     >
       <CarouselContent>
         {featuredproducts.map((item, index) => (

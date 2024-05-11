@@ -2,10 +2,10 @@
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
-import prod1 from "../../../public/Assets/IMG_9679.jpeg"
+import prod1 from "../../../public/Assets/Blockout Curtains with Swatches/blockout.png"
 import { Card, CardContent } from "@/components/ui/card"
-import prod2 from "../../../public/Assets/IMG_9680.jpeg"
-import prod3 from "../../../public/Assets/IMG_9681.jpeg"
+import prod2 from "../../../public/Assets/Blockout Curtains with Swatches/IMG_1561.jpg"
+import prod3 from "../../../public/Assets/Blockout Curtains with Swatches/IMG_1562.jpg"
 import {
     Carousel,
     CarouselContent,
@@ -15,21 +15,21 @@ import {
 } from "@/components/ui/carousel"
 
 const featuredproducts = [
-    { id: 1, srcimg: prod1, description: "Floral Curtain" },
-    { id: 2, srcimg: prod2, description: "Gray Curtain" },
-    { id: 3, srcimg: prod3, description: "Maroon Curtain" }
+    { id: 1, srcimg: prod1, description: "Blockout Curtain Selections" },
+    { id: 2, srcimg: prod2, description: "#01 - Cream, #02 - Almond, #03 - Tan" },
+    { id: 3, srcimg: prod3, description: "#04 - Butter, #05 - Taupe, #25 - Natural" }
 ]
 export function Carouselcurtain() {
     const plugin = React.useRef(
-        Autoplay({ delay: 2000 })
+        Autoplay({ delay: 2500 })
     )
 
     return (
         <Carousel
             plugins={[plugin.current]}
             className="w-full max-w-2xl"
-            onMouseEnter={plugin.current.stop}
-            onMouseLeave={plugin.current.reset}
+            onMouseEnter={() => plugin.current.stop()}
+            onMouseLeave={() => plugin.current.play()}
         >
             <CarouselContent>
                 {featuredproducts.map((item, index) => (

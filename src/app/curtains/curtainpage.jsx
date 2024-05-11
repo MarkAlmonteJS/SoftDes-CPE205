@@ -4,7 +4,7 @@
  * @see https://v0.dev/t/VqZkKt7ikS8
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { doc, setDoc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, getDocs, updateDoc } from "firebase/firestore";
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { CarouselPlugin } from "@/components/component/carousel"
@@ -20,6 +20,9 @@ import { Banner } from "@/components/component/banner";
 
 
 export default function BlindsPage() {
+
+
+
   const [documents, setDocuments] = useState([]); // Initialize state to hold an array of ProductSchema
 
 
@@ -41,6 +44,59 @@ export default function BlindsPage() {
     fetchDocuments();
   }, []);
 
+  const addToCart = async (productId) => {
+    console.log('Adding to cart:', productId); // Debug log
+    const userId = sessionStorage.getItem("User");
+    console.log('User ID:', userId); // Debug log
+
+    // Get the current user's cart document
+    const cartRef = doc(firebasedb, "Cart", userId);
+    const cartSnapshot = await getDoc(cartRef);
+    console.log('Cart snapshot:', cartSnapshot); // Debug log
+
+    let cartData;
+    if (!cartSnapshot.exists()) {
+      await setDoc(cartRef, {
+        items: [{ productId, quantity: 1 }], // Initialize with one item at quantity 1
+        totalitem: 1, // Initialize total to 1 since we're adding the first item
+        totalprice: 0, // Initialize total price to 0
+      });
+      console.log('Cart created with new item:', productId);
+    } else {
+      cartData = cartSnapshot.data();
+      const itemsArray = Array.isArray(cartData.items) ? cartData.items : [];
+      const existingProductIndex = itemsArray.findIndex(item => item.productId === productId);
+
+      if (existingProductIndex >= 0) {
+        // Product already exists in the cart, increment its quantity
+        const updatedQuantity = itemsArray[existingProductIndex].quantity + 1;
+        itemsArray[existingProductIndex] = { ...itemsArray[existingProductIndex], quantity: updatedQuantity };
+      } else {
+        // Product does not exist in the cart, add it with quantity 1
+        itemsArray.push({ productId, quantity: 1 });
+      }
+
+      // Fetch the price of the product being added
+      const productsCollectionRef = collection(firebasedb, "Products");
+      const productSnapshot = await getDocs(productsCollectionRef);
+      const productData = productSnapshot.docs.find(doc => doc.id === productId)?.data();
+
+      // Extract the price from the product data
+      const productPrice = productData?.price || 0;
+
+      // Calculate the new total price
+      const newTotalPrice = cartData.totalprice + productPrice;
+
+      const newTotalItem = cartData.totalitem + 1; // Increment the total item count by 1
+
+      await updateDoc(cartRef, {
+        items: itemsArray,
+        totalitem: newTotalItem,
+        totalprice: newTotalPrice, // Update the total price field
+      });
+      console.log('Existing cart updated with new item:', productId);
+    }
+  };
 
 
   return (
@@ -80,7 +136,7 @@ export default function BlindsPage() {
                     <h3 className="font-bold">{product.name}</h3>
                     <p className="font-semibold">₱{product.price}</p>
                   </div>
-                  <Button size="sm">Add to Cart</Button>
+                  <Button size="sm" onClick={() => addToCart(product.id)}>Add to Cart</Button>
                 </div>
               ))}
             </div>
