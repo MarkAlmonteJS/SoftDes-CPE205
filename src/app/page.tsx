@@ -28,34 +28,7 @@ interface ProductSchema {
 }
 
 
-export default function Component() {
-  const [documents, setDocuments] = useState([]);
-
-
-  async function fetchDocumentData() {
-    const docRef = doc(firebasedb, "Products", "F9siixXgPweWXiti5o9Z");
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      // console.log("Document data:", docSnap.data());
-      const data = docSnap.data();
-      // console.log("fetch from fetch document",data)
-      //console.log("image",data.Image)
-    } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
-    }
-
-  }
-  async function fetchDocumentTable() {
-    const productsCollectionRef = collection(firebasedb, "Products");
-    const querySnapshot = await getDocs(productsCollectionRef);
-
-    querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
-      // You can process each document here as needed
-    });
-  }
+export default function Mainpage() {
 
   return (
     <div className="flex flex-col min-h-[100dvh]">

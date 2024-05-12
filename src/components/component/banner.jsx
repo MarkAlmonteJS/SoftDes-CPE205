@@ -71,7 +71,7 @@ export function Banner() {
                     <img src="/Assets/logo2.jpeg" alt="Company Logo" className="h-20 w-auto mt-10" />
                 </Link>
                 <nav className="flex items-center gap-4 text-sm font-medium dark:text-gray-400">
-                    <Link className="underline-off" href="/">
+                    <Link className="underline-off" href="loginedpage">
                         Home
                     </Link>
                     <DropdownMenu>

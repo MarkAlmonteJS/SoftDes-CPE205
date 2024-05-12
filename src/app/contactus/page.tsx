@@ -3,7 +3,7 @@ import { Contactus } from './contact';
 
 const Page: React.FC = () => {
     return (
-    <Contactus/>
+        <Contactus />
     );
 }
 export default Page;

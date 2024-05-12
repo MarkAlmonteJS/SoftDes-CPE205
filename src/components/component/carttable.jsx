@@ -12,13 +12,13 @@ import {
 import { Button } from "../ui/button";
 
 export function Carttable({ Products, quantity, updateQuantity }) {
-  console.log("this is the quantity in table: ", quantity);
-
   const getQuantity = (productId) => {
     console.log(`Getting quantity for product ID: ${productId}`);
     const productQuantityObj = quantity.find(q => q.productId === productId);
     console.log(`Found quantity object for product ID ${productId}:`, productQuantityObj);
     return productQuantityObj ? productQuantityObj.quantity : 0;
+
+
   };
 
 

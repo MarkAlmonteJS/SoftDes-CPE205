@@ -8,7 +8,7 @@ import { Banner } from "@/components/component/banner";
 import { useEffect, useState } from 'react';
 import { useRouter } from "next/navigation"; // Corrected import path
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { firebasedb } from '../../../firebaseconfig';
 import { Dialogsamp } from "@/components/component/dialogsamp";
 
@@ -54,7 +54,7 @@ export function Usertab() {
         if (!userId) return;
 
         const transactionRef = collection(firebasedb, 'Transaction');
-        const snapshot = await getDocs(transactionRef);
+        const snapshot = await getDocs(query(transactionRef, where("userID", "==", userId)));
         const transactionsData = snapshot.docs.map(doc => ({
             id: doc.id,
             ...doc.data(),
@@ -82,7 +82,7 @@ export function Usertab() {
                     <div className="grid gap-6">
                         <div className="grid gap-4">
                             <div className="flex items-center gap-4">
-                                <h1 className="font-semibold text-lg md:text-xl">Your Orders</h1>
+                                <h1 className="font-semibold text-lg md:text-xl">Your orders</h1>
                             </div>
                             <div className="border shadow-sm rounded-lg">
                                 <Table className="w-full max-w-md mx-auto">

@@ -21,6 +21,7 @@ interface iUser {
   last: string;
   type: string;
   mobile: string;
+  id: string;
 
 }
 
@@ -33,6 +34,7 @@ export function Signup() {
     last: '',
     type: '',
     mobile: '',
+    id: '',
 
 
   });
@@ -60,11 +62,11 @@ export function Signup() {
         last: lastName,
         type: 'User',
         mobile: mobile,
+        id: userCredential.user.uid,
       };
 
       // Define the collections
       const userListCollection = collection(firebasedb, 'UserList');
-      const cartCollection = collection(firebasedb, 'Cart');
 
       // Add the document to the UserList collection and get the auto-generated ID
       const newUserRef = await addDoc(userListCollection, userData);
@@ -76,6 +78,7 @@ export function Signup() {
         items: [],
         totalitem: 0,
         totalprice: 0,
+        id: userCredential.user.uid,
       };
 
       // Correctly create the Cart document using the user's UID as the document name
