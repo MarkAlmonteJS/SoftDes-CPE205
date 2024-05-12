@@ -55,6 +55,9 @@ export function Signup() {
       console.log("Register Successful");
       console.log("User Registered with: ", userCredential.user.uid);
 
+      // Store the user's UID in session storage
+      sessionStorage.setItem('userId', userCredential.user.uid);
+
       // Prepare the data to store
       const userData: iUser = {
         name: firstName,
@@ -68,9 +71,12 @@ export function Signup() {
       // Define the collections
       const userListCollection = collection(firebasedb, 'UserList');
 
-      // Add the document to the UserList collection and get the auto-generated ID
-      const newUserRef = await addDoc(userListCollection, userData);
+      // Retrieve the user's UID from session storage
+      const userIdFromSession = sessionStorage.getItem('userId');
 
+      await setDoc(doc(firebasedb, 'UserList', userCredential.user.uid), {
+        ...userData,
+      });
       // Create a new Cart document for the user using the user's UID as the document name
       const newCartData = {
         Cartno: 1,
@@ -87,7 +93,9 @@ export function Signup() {
         userId: userCredential.user.uid, // Store the user's UID in the Cart document
       });
 
-      console.log('User added with ID:', newUserRef.id);
+
+
+      console.log('User added with ID:', userIdFromSession);
       alert("User successfully Registered Proceed to sign in"); // Consider updating this message if relevant
     } catch (error) {
       console.error("Error adding admin or registering user: ", error);
